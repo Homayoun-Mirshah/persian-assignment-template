@@ -1,0 +1,274 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+% !TeX TXS-program:quick = txs:///compile | txs:///view
+% !TeX TXS-program:compile = latexmk -xelatex -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error -halt-on-error -outdir=build "%.tex"
+% !TeX TXS-program:view = txs:///view-pdf-internal --embedded "?a)/build/?m).pdf"
+% نمونهٔ کامل امکانات؛ نقطهٔ شروع تمرین واقعی main.tex است.
+\documentclass[11pt,a4paper]{article}
+\usepackage{assignment}
+\input{metadata}
+\renewcommand{\Course}{روش‌های ریاضی و محاسباتی}
+\renewcommand{\AssignmentTitle}{نمونهٔ کامل قالب}
+
+\begin{document}
+\MakeAssignmentTitle
+\begin{problem}[۲۰ نمره]{ریاضی، فرمول و اثبات}\label{prob:math}
+  برای تابع $f(x)=(x-3)^2+1$، نقطهٔ کمینه را به دست آورید
+  و یکتایی آن را با استفاده از تحدب اکید توضیح دهید.
+\end{problem}
+\begin{solution}
+  \Part{رابطه‌های چندخطی و ارجاع}
+  مشتق‌های مرتبهٔ اول و دوم به صورت زیر محاسبه می‌شوند:
+  \begin{align}
+    f'(x)&=2(x-3),\label{eq:derivative}\\
+    f''(x)&=2>0.\label{eq:convexity}
+  \end{align}
+  از رابطهٔ \eqnref{eq:derivative}، تنها نقطهٔ ایستا $x=3$ است؛
+  رابطهٔ \eqnref{eq:convexity} نیز محدب بودن اکید تابع را نشان می‌دهد.
+  \begin{answerbox}
+    \vspace{-3mm}
+    \[
+      x^*=\argmin_{x\in\R} f(x)=3,\qquad f(x^*)=1.
+    \]
+    \vspace{-3mm}
+  \end{answerbox}
+
+  \Part{قضیه و اثبات}
+  \begin{theorem}\label{thm:unique}
+    تابع اکیدا محدب روی یک مجموعهٔ محدب، حداکثر یک کمینهٔ سراسری دارد.
+  \end{theorem}
+  \begin{proof}
+    فرض کنید دو نقطهٔ متمایز $u$ و $v$ هر دو کمینه باشند. از تحدب اکید:
+    \[
+      f\!\left(\frac{u+v}{2}\right)
+      <\frac{f(u)+f(v)}{2}=f(u).
+    \]
+    این نتیجه با کمینه بودن $u$ تناقض دارد.
+  \end{proof}
+\end{solution}
+\newpage
+\begin{problem}[۲۰ نمره]{جبر خطی و حسابان}\label{prob:algebra}
+  دستگاه خطی زیر را حل کنید و جواب را با کمینه‌سازی نرم باقی‌مانده مقایسه کنید.
+  سپس یک تابع چندضابطه‌ای، نرم بردار پاسخ و یک انتگرال را نمایش دهید.
+\end{problem}
+\begin{solution}
+  \Part{ماتریس و بردار}
+  \begin{equation}\label{eq:linear-system}
+    \underbrace{\begin{bmatrix}3&1\\1&2\end{bmatrix}}_{\mat{A}}
+    \underbrace{\begin{bmatrix}x_1\\x_2\end{bmatrix}}_{\vect{x}}
+    =\underbrace{\begin{bmatrix}9\\8\end{bmatrix}}_{\vect{b}},
+    \qquad \vect{x}=\begin{bmatrix}2\\3\end{bmatrix}.
+  \end{equation}
+  دترمینان ماتریس برابر $5$ و ناصفر است؛ بنابراین پاسخ دستگاه یکتا است.
+  جای‌گذاری جواب نیز $3(2)+3=9$ و $2+2(3)=8$ را به دست می‌دهد.
+
+  \Part{کمترین مربعات و باقی‌مانده}
+  در نمایش بهینه‌سازی، همان جواب از کمینه‌سازی تابع $J$ به دست می‌آید:
+  \begin{subequations}\label{eq:least-squares}
+    \begin{align}
+      J(\vect{x})&=\tfrac12\norm{\mat{A}\vect{x}-\vect{b}}_2^2,\\
+      \nabla J(\vect{x})&=\mat{A}^{\mathsf T}
+        (\mat{A}\vect{x}-\vect{b})=\vect{0},\\
+      \vect{x}^*&=(\mat{A}^{\mathsf T}\mat{A})^{-1}
+        \mat{A}^{\mathsf T}\vect{b}.
+    \end{align}
+  \end{subequations}
+  رابطهٔ آخر در صورت استقلال خطی ستون‌های $\mat{A}$ معتبر است.
+  برای محاسبهٔ عددی معمولا دستگاه خطی حل می‌شود و وارون ماتریس صریحا تشکیل نمی‌شود.
+  \begin{answerbox}
+    \[
+      \vect{x}^*=\begin{bmatrix}2\\3\end{bmatrix},\qquad
+      \norm{\mat{A}\vect{x}^*-\vect{b}}_2=0.
+    \]
+  \end{answerbox}
+
+  \Part{تابع چندضابطه‌ای و انتگرال}
+  \begin{equation}\label{eq:piecewise}
+    g(x)=\begin{cases}x^2,&x\geq 0,\\-x,&x<0,\end{cases}
+    \qquad \norm{\vect{x}}_2=\sqrt{13},\qquad
+    \int_0^1 x^2\dd x=\frac{1}{3}.
+  \end{equation}
+\end{solution}
+\newpage
+\begin{problem}[۲۰ نمره]{نمودار تابع و دادهٔ عددی}\label{prob:plots}
+  تابع تمرین اول و تغییرات خطای الگوریتم گرادیان کاهشی را رسم و تفسیر کنید.
+  داده‌های نمودار دوم از فایل مستقل خوانده می‌شوند.
+\end{problem}
+\begin{solution}
+  \Part{رسم مستقیم تابع}
+  \begin{figure}[H]
+    \begin{plotarea}
+      \begin{tikzpicture}
+        \begin{axis}[assignment axis,height=5.8cm,
+          xlabel={$x$},ylabel={$f(x)$},xmin=0,xmax=6,ymin=0,ymax=11,
+          domain=0:6,samples=81,xtick={0,1,2,3,4,5,6},legend pos=north east]
+          \addplot[AssignmentAccent,no markers] {(x-3)^2+1};
+          \addlegendentry{$(x-3)^2+1$}
+          \addplot[only marks,AssignmentGold,mark=*,mark size=2.5pt]
+            coordinates {(3,1)};
+          \addlegendentry{$x^*=3$}
+        \end{axis}
+      \end{tikzpicture}
+    \end{plotarea}
+    \caption{کمینهٔ تابع در نقطهٔ $x=3$ قرار دارد.}
+    \label{fig:function}
+  \end{figure}
+
+  \Part{خواندن داده از فایل و محور لگاریتمی}
+  \begin{figure}[H]
+    \begin{plotarea}
+      \begin{tikzpicture}
+        \begin{semilogyaxis}[assignment axis,height=6cm,
+          xlabel={$k$},ylabel={$\lvert x_k-3\rvert$},
+          xmin=0,xmax=10,xtick={0,2,4,6,8,10},
+          legend pos=north east]
+          \addplot[AssignmentAccent,mark=*] table[
+            x=iteration,y=error,col sep=comma]{assets/convergence.csv};
+          \addlegendentry{$\eta=0.2,\; x_0=0$}
+        \end{semilogyaxis}
+      \end{tikzpicture}
+    \end{plotarea}
+    \caption{کاهش خطای مطلق در ده گام؛ داده‌ها مربوط به همین مثال محاسباتی‌اند.}
+    \label{fig:convergence}
+  \end{figure}
+  برای این تابع، رابطهٔ $x_{k+1}-3=0.6(x_k-3)$ برقرار است؛
+  بنابراین خطای نمودار \ref{fig:convergence} در هر گام در $0.6$ ضرب می‌شود.
+  پس از ده گام، خطای مطلق تقریبا $0.01814$ است.
+\end{solution}
+\newpage
+\begin{problem}[۲۰ نمره]{کد و گزارش نتیجهٔ اجرا}\label{prob:code}
+  روش گرادیان کاهشی را برای تابع $f(x)=(x-3)^2+1$ با گام ثابت
+  $\eta=0.2$ و مقدار اولیهٔ $x_0=0$ پیاده‌سازی کنید.
+\end{problem}
+\begin{solution}
+  \Part{خواندن کد از فایل مستقل}
+  قاعدهٔ به‌روزرسانی $x_{k+1}=x_k-0.2f'(x_k)$ است.
+  کد زیر ده گام را اجرا می‌کند و مقدار نهایی تابع و خطا را می‌نویسد.
+  \CodeFile[fontsize=\footnotesize]{Python}{گرادیان کاهشی با گام ثابت}{examples/gradient_descent.py}
+  \begin{answerbox}[خروجی نمونه پس از ده گام]
+    \begin{latin}\codefont\small
+      x = 2.981860\quad f(x) = 1.000329\quad error = 0.018140
+    \end{latin}
+  \end{answerbox}
+  نتیجه با نمودار \ref{fig:convergence} سازگار است. برای تابع درجهٔ دوم حاضر،
+  شرط $0<\eta<1$ همگرایی را تضمین می‌کند.
+
+  \Part{درج کد در متن و تغییر زبان}
+  مثال مستقل زیر نشان می‌دهد که قواعد هایلایت با انتخاب زبان تغییر می‌کنند.
+\begin{codeblock}{C++}{جست‌وجوی خطی}
+#include <vector>
+int find_index(const std::vector<int>& a, int target) {
+    for (int i = 0; i < static_cast<int>(a.size()); ++i)
+        if (a[i] == target) return i;
+    return -1;  // Not found.
+}
+\end{codeblock}
+  هزینهٔ زمانی این جست‌وجو در بدترین حالت $O(n)$ است.
+\end{solution}
+\newpage
+\begin{problem}[۲۰ نمره]{بلوک‌دیاگرام و فلوچارت}\label{prob:diagram}
+  یک سامانهٔ بازخورد منفی و گردش کار یک الگوریتم تکراری را نمایش دهید.
+  جهت پیکان‌ها و شرط توقف باید مشخص باشند.
+\end{problem}
+\begin{solution}
+  \Part{سامانهٔ کنترل با بازخورد منفی}
+  \begin{figure}[H]
+    \begin{diagramarea}
+      \begin{tikzpicture}
+        \node (r) at (0,0) {$r(t)$};
+        \node[assignment sum] (sum) at (1.3,0) {$\sum$};
+        \node[assignment block] (controller) at (3.7,0) {$C(s)$};
+        \node[assignment block] (plant) at (7,0) {$G(s)$};
+        \coordinate (branch) at (9,0);
+        \node (output) at (10.2,0) {$y(t)$};
+        \node[assignment block] (sensor) at (5.4,-1.9) {$H(s)$};
+        \draw[assignment arrow] (r) -- node[above] {$+$} (sum);
+        \draw[assignment arrow] (sum) -- node[above] {$e(t)$} (controller);
+        \draw[assignment arrow] (controller) -- node[above] {$u(t)$} (plant);
+        \draw[assignment arrow] (plant) -- (output);
+        \fill[AssignmentInk] (branch) circle (1.7pt);
+        \draw[assignment arrow] (branch) |- (sensor.east);
+        \draw[assignment arrow] (sensor.west) -| node[pos=.93,left] {$-$} (sum.south);
+      \end{tikzpicture}
+    \end{diagramarea}
+    \caption{بلوک‌دیاگرام با بازخورد منفی؛ $C$ کنترل‌کننده، $G$ فرایند و $H$ حسگر است.}
+    \label{fig:feedback}
+  \end{figure}
+  با فرض سامانه‌های خطی و شرایط اولیهٔ صفر، تابع تبدیل حلقه‌بسته برابر است با:
+  \begin{equation}\label{eq:feedback}
+    \frac{Y(s)}{R(s)}=\frac{C(s)G(s)}{1+C(s)G(s)H(s)}.
+  \end{equation}
+
+  \Part{فلوچارت با برچسب فارسی}
+  \begin{figure}[H]
+    \begin{diagramarea}
+      \begin{tikzpicture}[node distance=8mm]
+        \node[assignment io] (start) {\rl{شروع}};
+        \node[assignment block,below=of start] (init) {\rl{مقداردهی اولیه}};
+        \node[assignment block,below=of init] (update) {\rl{محاسبهٔ گام جدید}};
+        \node[assignment decision,below=of update] (test) {\rl{شرط توقف؟}};
+        \node[assignment io,below=of test] (end) {\rl{نمایش نتیجه}};
+        \draw[assignment arrow] (start) -- (init);
+        \draw[assignment arrow] (init) -- (update);
+        \draw[assignment arrow] (update) -- (test);
+        \draw[assignment arrow] (test) -- node[right] {\rl{بله}} (end);
+        \draw[assignment arrow] (test.west) -- ++(-2.1,0)
+          node[pos=.5,above] {\rl{خیر}} |- (update.west);
+      \end{tikzpicture}
+    \end{diagramarea}
+    \caption{تکرار محاسبه تا رسیدن به شرط توقف، مانند آستانهٔ خطا یا سقف تعداد گام‌ها.}
+    \label{fig:flowchart}
+  \end{figure}
+\end{solution}
+\newpage
+\begin{notebox}[راهنمای سریع استفاده از قالب]
+  برای شروع یک تمرین، فایل \codeinline{main.tex} و اطلاعات
+  \codeinline{metadata.tex} ویرایش می‌شوند. فایل
+  \codeinline{example.tex} نمونهٔ کامل امکانات است و فایل‌های کد در پوشهٔ
+  \codeinline{examples/} قرار دارند. راهنمای کامل در
+  \codeinline{README-fa.md} آمده است.
+\end{notebox}
+
+{\large\bfseries\color{AssignmentAccent}زبان‌های کد}\par
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{زبان} & \textbf{نام قابل استفاده در قالب}\\
+    \midrule
+    \lr{Python} & \codeinline{Python}\\
+    \lr{C / C++} & \codeinline{C / C++}\\
+    \lr{MATLAB / Java} & \codeinline{Matlab / Java}\\
+    \lr{JavaScript / TypeScript} & \codeinline{JavaScript / TypeScript}\\
+    \lr{SQL / R / Bash} & \codeinline{SQL / R / bash}\\
+    \bottomrule
+  \end{tabular}
+  \caption{نام زبان به‌صراحت تعیین می‌شود؛ تشخیص خودکار از پسوند فایل انجام نمی‌شود.}
+\end{table}
+
+\begin{codeblock}{Matlab}{نمونهٔ زبان ماتریسی}
+A = [3, 1; 1, 2];
+b = [9; 8];
+x = A \ b;  % Solve the linear system.
+disp(x)
+\end{codeblock}
+
+\begin{codeblock}[theme=vscode-dark,minted={escapeinside=||}]{JavaScript}{نمونهٔ جاوااسکریپت}
+const square = (x) => x ** 2;
+// |\rl{محاسبهٔ مربع هر عضو}|
+const values = [1, 2, 3].map(square);
+console.log("Squares:", values);
+\end{codeblock}
+
+\begin{notebox}[متن فارسی در کنار کد]
+  عنوان و توضیح کد فارسی‌اند و بدنهٔ کد چپ‌به‌راست تنظیم می‌شود.
+  برای توضیح فارسی داخل کد از مسیر مخصوص درج متن در راهنما استفاده می‌شود؛
+  پشتیبانی از متن یونیکد دلخواه داخل رشته‌های برنامه ادعا نشده است.
+\end{notebox}
+
+{\large\bfseries\color{AssignmentAccent}ارجاع و شماره‌گذاری}\par
+  تمرین \ref{prob:math}، رابطهٔ \eqnref{eq:linear-system} و
+  شکل \ref{fig:feedback} نمونهٔ ارجاع داخلی هستند.
+  شمارهٔ فرمول‌ها از شمارهٔ تمرین پیروی می‌کند؛ شمارهٔ شکل‌ها، جدول‌ها و کدها
+  در کل سند پیوسته است. دو بار کامپایل، ارجاع‌ها و تعداد کل صفحات را نهایی می‌کند.
+\end{document}

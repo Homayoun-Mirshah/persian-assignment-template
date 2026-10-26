@@ -1,0 +1,23 @@
+/output/
+/references/
+/tmp/
+**/build/
+**/.venv*/
+**/_minted*/
+**/__pycache__/
+**/*.egg-info/
+*.py[cod]
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.bak
+*.tmp
+# Dependency payloads are delivered in the bundled ZIP, not Git history.
+/assignment-template-bundled/

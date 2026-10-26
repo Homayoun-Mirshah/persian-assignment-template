@@ -1,0 +1,17 @@
+/build/
+/tmp/
+/.venv*/
+/_minted*/
+*.minted
+__pycache__/
+*.egg-info/
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv

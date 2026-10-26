@@ -1,0 +1,133 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{editor-code}[2026/10/16 Multilanguage blocks and inline code]
+% Reusable module. Load BEFORE xepersian. See README-fa.md.
+\RequirePackage{iftex}
+\ifXeTeX\else
+  \PackageError{editor-code}{Use XeLaTeX}{This module uses fontspec and XePersian.}
+\fi
+\RequirePackage{fontspec}
+\RequirePackage{xcolor}
+\RequirePackage{needspace}
+\RequirePackage{setspace}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\RequirePackage{minted}[2026/03/03]
+
+\newfontfamily\codefont[Scale=.88,RawFeature={-calt,-liga}]{JetBrains Mono}
+\setmonofont[Scale=.88,RawFeature={-calt,-liga}]{JetBrains Mono}
+
+\ExplSyntaxOn
+\cs_new:Npn \EditorLowercase #1 {\str_lowercase:f {#1}}
+\ExplSyntaxOff
+\makeatletter
+% Public: name, Pygments style, display name, background, text, toolbar, gutter text.
+\newcommand{\DeclareCodeTheme}[7]{%
+  \expandafter\def\csname EC@theme@#1\endcsname{%
+    \def\EC@style{#2}\def\EC@label{#3}%
+    \definecolor{ECBackground}{HTML}{#4}\definecolor{ECForeground}{HTML}{#5}%
+    \definecolor{ECToolbar}{HTML}{#6}\definecolor{ECNumbers}{HTML}{#7}}}
+\DeclareCodeTheme{darcula}{assignment-darcula}{Darcula}{2B2B2B}{A9B7C6}{313335}{92979B}
+\DeclareCodeTheme{intellij-light}{assignment-intellij}{IntelliJ Light}{FFFFFF}{000000}{F2F2F2}{707070}
+\DeclareCodeTheme{vscode-dark}{assignment-vscode-dark}{VS Code Dark+}{1E1E1E}{D4D4D4}{303031}{858585}
+\DeclareCodeTheme{matlab-light}{assignment-matlab}{MATLAB Light}{FFFFFF}{000000}{F1F3F5}{707070}
+\expandafter\let\csname EC@theme@intellij-darcula\endcsname\EC@theme@darcula
+\expandafter\let\csname EC@theme@pycharm-darcula\endcsname\EC@theme@darcula
+\expandafter\let\csname EC@theme@pycharm-light\expandafter\endcsname\csname EC@theme@intellij-light\endcsname
+\newcommand{\SetCodeDefaultTheme}[1]{\def\EC@defaulttheme{#1}}
+\SetCodeDefaultTheme{darcula}
+\newcommand{\SetCodeLanguageTheme}[2]{%
+  \expandafter\def\csname EC@language@\EditorLowercase{#1}\endcsname{#2}}
+\SetCodeLanguageTheme{matlab}{matlab-light}
+
+\pgfkeys{/editor code/.is family,/editor code,
+  theme/.store in=\EC@theme,
+  minted/.store in=\EC@extra,
+  fontsize/.store in=\EC@size,
+  firstline/.store in=\EC@firstline,
+  lastline/.store in=\EC@lastline,
+  firstnumber/.store in=\EC@firstnumber,
+  numbers/.is choice,
+  numbers/left/.code={\def\EC@numbers{true}},
+  numbers/none/.code={\def\EC@numbers{false}}}
+
+\newcounter{assignmentcode}
+\newcommand{\CodeHeading}[2]{%
+  \par\Needspace{6\baselineskip}\refstepcounter{assignmentcode}%
+  {\small\bfseries کد \theassignmentcode: #2}\par\nobreak}
+% Inline code has one neutral appearance, independent of block-code themes.
+\definecolor{ECInlineBackground}{HTML}{F2F2F2}
+\definecolor{ECInlineBorder}{HTML}{E4E4E4}
+\definecolor{ECInlineForeground}{HTML}{303236}
+\tcbset{editor inline/.style={enhanced,on line,arc=.7mm,
+  boxrule=.2pt,boxsep=0pt,left=.8mm,right=.8mm,top=.3mm,bottom=.3mm,
+  colback=ECInlineBackground,colframe=ECInlineBorder,
+  coltext=ECInlineForeground,fontupper=\codefont}}
+\newcommand{\EC@inline}[1]{%
+  \lr{{\tcbox[editor inline]{\vphantom{Ag}#1}}}}
+% Both \codeinline{file_name.py} and \codeinline|a_b = 50%| are literal.
+\NewDocumentCommand{\codeinline}{v}{\EC@inline{#1}}
+% Preserve the earlier API without language or theme-dependent highlighting.
+\NewDocumentCommand{\CodeInline}{O{} m v}{\EC@inline{#3}}
+
+\newcommand{\EC@prepare}[2]{%
+  \edef\EC@lexer{\EditorLowercase{#2}}%
+  \edef\EC@theme{\EC@defaulttheme}%
+  \ifcsname EC@language@\EC@lexer\endcsname
+    \edef\EC@theme{\csname EC@language@\EC@lexer\endcsname}%
+  \fi
+  \def\EC@extra{}\def\EC@size{\small}\def\EC@numbers{true}%
+  \def\EC@firstline{1}\def\EC@lastline{999999}\def\EC@firstnumber{1}%
+  \pgfkeys{/editor code/.cd,#1}%
+  \ifcsname EC@theme@\EC@theme\endcsname
+    \csname EC@theme@\EC@theme\endcsname
+  \else
+    \PackageError{editor-code}{Unknown code theme '\EC@theme'}%
+      {Use darcula, intellij-light, vscode-dark, or matlab-light.}%
+  \fi
+  \edef\EC@options{style=\EC@style,fontsize=\unexpanded\expandafter{\EC@size},%
+    linenos=\EC@numbers,firstline=\EC@firstline,lastline=\EC@lastline,%
+    firstnumber=\EC@firstnumber,\unexpanded\expandafter{\EC@extra}}%
+  \expandafter\setminted\expandafter{\EC@options}%
+  \renewcommand{\theFancyVerbLine}{\codefont\scriptsize\color{ECNumbers}\arabic{FancyVerbLine}}}
+
+\setminted{encoding=utf8,breaklines=true,breakanywhere=true,autogobble=true,
+  tabsize=4,numbersep=10pt,showspaces=false,showtabs=false,
+  fontfamily=tt,baselinestretch=1.08,breaksymbolleft={},breaksymbolright={}}
+
+\newcommand{\EC@openbox}[1]{%
+  \latin\setstretch{1.05}%
+  \begin{tcolorbox}[enhanced,breakable,arc=1.2mm,boxrule=.4pt,
+    colback=ECBackground,colframe=ECToolbar,coltext=ECForeground,
+    colbacktitle=ECToolbar,coltitle=ECForeground,
+    title={#1\hfill\EC@label},fonttitle=\codefont\footnotesize,
+    % With tcolorbox's 1mm boxsep, code starts 2mm after the 8mm gutter.
+    % The 10pt numbersep leaves numbers wholly inside that gutter.
+    left=9mm,right=3mm,top=2.5mm,bottom=2.5mm,
+    toptitle=1.5mm,bottomtitle=1.5mm,
+    before skip=2mm,after skip=3mm,
+    underlay unbroken and first={%
+      \begin{tcbclipinterior}
+      \fill[ECToolbar] (interior.south west) rectangle ([xshift=8mm]interior.north west);
+      \end{tcbclipinterior}},
+    underlay middle and last={%
+      \begin{tcbclipinterior}
+      \fill[ECToolbar] (interior.south west) rectangle ([xshift=8mm]interior.north west);
+      \end{tcbclipinterior}}]
+}
+\newcommand{\EC@closebox}{\end{tcolorbox}\endlatin}
+
+% Language and theme are independent. Extra minted keys use minted={...}.
+\newenvironment{codeblock}[3][]{%
+  \VerbatimEnvironment
+  \EC@prepare{#1}{#2}\CodeHeading{#2}{#3}%
+  \EC@openbox{#2}%
+  \begin{minted}{\EC@lexer}%
+}{\end{minted}\EC@closebox}
+\NewDocumentCommand{\CodeFile}{O{} m m m}{%
+  \begingroup
+  \EC@prepare{#1}{#2}\CodeHeading{#2}{#3}%
+  \EC@openbox{#2}%
+  \inputminted{\EC@lexer}{#4}%
+  \EC@closebox
+  \endgroup}
+\makeatother

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "assignment-editorstyles"
+version = "1.1.0"
+description = "Editable editor-inspired Pygments themes for Persian exercises"
+requires-python = ">=3.9"
+dependencies = ["Pygments>=2.19.2,<3"]
+
+[tool.setuptools]
+py-modules = ["assignment_editorstyles"]
+
+[project.entry-points."pygments.styles"]
+assignment-darcula = "assignment_editorstyles:DarculaStyle"
+assignment-intellij = "assignment_editorstyles:IntelliJLightStyle"
+assignment-vscode-dark = "assignment_editorstyles:VSCodeDarkStyle"
+assignment-matlab = "assignment_editorstyles:MatlabLightStyle"

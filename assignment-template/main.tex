@@ -1,0 +1,85 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+% !TeX TXS-program:quick = txs:///compile | txs:///view
+% !TeX TXS-program:compile = latexmk -xelatex -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error -halt-on-error -outdir=build "%.tex"
+% !TeX TXS-program:view = txs:///view-pdf-internal --embedded "?a)/build/?m).pdf"
+% فایل شروع: برای هر تمرین یک کپی از کل پوشه بگیرید.
+\documentclass[11pt,a4paper]{article}
+\usepackage{assignment}
+\input{metadata}
+
+\begin{document}
+\MakeAssignmentTitle
+
+\begin{problem}[۲۵ نمره]{ریاضی و فرمول‌ها}
+  صورت مسئله، داده‌های معلوم و فرض‌های لازم در این قسمت نوشته می‌شود.
+\end{problem}
+\begin{solution}
+  مراحل حل را اینجا بنویسید. نمونه‌ای از یک رابطهٔ شماره‌دار:
+  \begin{equation}\label{eq:starter}
+    f(x)=x^2,\qquad f'(x)=2x.
+  \end{equation}
+  با استفاده از رابطهٔ \eqnref{eq:starter} نتیجه به دست می‌آید.
+  \begin{answerbox}
+    پاسخ نهایی و در صورت نیاز واحد و شرایط اعتبار آن را اینجا بنویسید.
+  \end{answerbox}
+\end{solution}
+
+\begin{problem}[۲۵ نمره]{نمودار و تحلیل داده}
+  تابع یا داده‌های مورد بررسی و هدف رسم نمودار را مشخص کنید.
+\end{problem}
+\begin{solution}
+  \begin{figure}[H]
+    \begin{plotarea}
+      \begin{tikzpicture}
+        \begin{axis}[assignment axis,height=4.5cm,
+          xlabel={$x$},ylabel={$f(x)$},domain=-2:2,samples=61,
+          no markers]
+          \addplot[AssignmentAccent] {x^2};
+        \end{axis}
+      \end{tikzpicture}
+    \end{plotarea}
+    \caption{نمونهٔ نمودار تابع؛ تحلیل و تفسیر در متن پاسخ نوشته می‌شود.}
+    \label{fig:starter}
+  \end{figure}
+\end{solution}
+
+% این شکست صفحه اختیاری است و می‌تواند حذف شود.
+\newpage
+\begin{problem}[۲۵ نمره]{پیاده‌سازی و کد}
+  الگوریتم، ورودی، خروجی و زبان برنامه‌نویسی مورد استفاده را مشخص کنید.
+\end{problem}
+\begin{solution}
+\begin{codeblock}{Python}{تابع نمونه}
+def square(x):
+    # Replace this example with your solution.
+    return x ** 2
+
+print(square(3))
+\end{codeblock}
+  تابع \codeinline{square} با \codeinline{square(3)} فراخوانی می‌شود.
+  نتیجهٔ اجرا و توضیح کوتاه دربارهٔ درستی پاسخ در این قسمت قرار می‌گیرد.
+  % برای خواندن کد از فایل:
+  % \CodeFile{Python}{عنوان کد}{examples/gradient_descent.py}
+\end{solution}
+
+\begin{problem}[۲۵ نمره]{بلوک‌دیاگرام}
+  اجزای سامانه و جهت جریان اطلاعات بین آن‌ها را نمایش دهید.
+\end{problem}
+\begin{solution}
+  \begin{figure}[H]
+    \begin{diagramarea}
+      \begin{tikzpicture}[node distance=13mm]
+        \node[assignment io] (input) {\rl{ورودی}};
+        \node[assignment block,right=of input] (process) {\rl{پردازش}};
+        \node[assignment io,right=of process] (output) {\rl{خروجی}};
+        \draw[assignment arrow] (input) -- (process);
+        \draw[assignment arrow] (process) -- (output);
+      \end{tikzpicture}
+    \end{diagramarea}
+    \caption{بلوک‌دیاگرام سادهٔ ورودی، پردازش و خروجی.}
+    \label{fig:starter-block}
+  \end{figure}
+  شرح نقش هر بلوک و ارتباط آن با پاسخ در این قسمت نوشته می‌شود.
+\end{solution}
+\end{document}

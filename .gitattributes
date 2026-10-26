@@ -1,0 +1,13 @@
+* text=auto
+*.tex text eol=lf
+*.sty text eol=lf
+*.md text eol=lf
+*.html text eol=lf
+*.py text eol=lf
+*.ps1 text eol=lf
+*.cmd text eol=crlf
+*.png binary
+*.ttf binary
+*.otf binary
+*.zip binary
+*.whl binary

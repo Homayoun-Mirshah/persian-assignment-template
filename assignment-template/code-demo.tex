@@ -1,0 +1,73 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+% !TeX TXS-program:quick = txs:///compile | txs:///view
+% !TeX TXS-program:compile = latexmk -xelatex -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error -halt-on-error -outdir=build "%.tex"
+% !TeX TXS-program:view = txs:///view-pdf-internal --embedded "?a)/build/?m).pdf"
+% Standalone example: does NOT load assignment.sty.
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{editor-code}
+\usepackage{hyperref}
+\usepackage{xepersian}
+\settextfont[BoldFont={Vazirmatn Bold}]{Vazirmatn}
+\setlatintextfont{Lora}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\emergencystretch}{2em}
+\setstretch{1.25}
+\raggedbottom
+\hypersetup{unicode=true,colorlinks=true,urlcolor=blue,
+  pdftitle={نمونهٔ تم‌های ویرایشگر برای کد},pdfauthor={قالب تمرین‌های دانشگاهی}}
+
+\begin{document}
+{\LARGE\bfseries کد با ظاهر ویرایشگر}\par
+{\large زبان و تم، دو انتخاب مستقل}\par
+این فایل نمونه‌ای مستقل از قالب تمرین است. نام زبان تعیین می‌کند کدام
+قواعد برای تشخیص اجزای کد به کار رود؛ تم فقط رنگ‌ها و ظاهر کادر را مشخص می‌کند.
+
+\CodeFile{Java}{ظاهر پیش‌فرض؛ \lr{IntelliJ Darcula}}{examples/Statistics.java}
+در این نمونه کلیدواژه‌ها نارنجی، رشته‌ها سبز، عددها آبی و نام تابع در محل
+تعریف زرد است. نام‌گذاری معنایی بر اساس کل پروژه انجام نمی‌شود؛ بنابراین
+همهٔ رنگ‌های وابسته به تحلیل داخلی \lr{IDE} بازتولید نمی‌شوند.
+
+\begin{codeblock}[theme=intellij-light]{Java}{انتخاب تم روشن برای همان زبان}
+public static int square(int value) {
+    // A light theme for printing.
+    return value * value;
+}
+\end{codeblock}
+
+\newpage
+{\LARGE\bfseries یک زبان، دو ظاهر}\par
+برای پایتون می‌توان تم آشنای \lr{PyCharm Darcula} یا تم \lr{VS Code Dark+}
+را انتخاب کرد. دو بلوک زیر دقیقا از یک فایل خوانده می‌شوند.
+
+\CodeFile[theme=pycharm-darcula]{Python}{پایتون با ظاهر \lr{PyCharm}}{examples/normalize.py}
+\CodeFile[theme=vscode-dark]{Python}{پایتون با ظاهر \lr{VS Code}}{examples/normalize.py}
+فونت هر دو بلوک \lr{JetBrains Mono} است. عنوان فارسی، شمارهٔ خط لاتین،
+شکستن خط‌های بلند و حفظ فاصله‌گذاری در هر دو حالت یکسان کار می‌کنند.
+
+\newpage
+{\LARGE\bfseries متلب و استفاده در فایل دیگر}\par
+تم پیش‌فرض متلب روشن است. کلیدواژه‌ها، رشته‌ها و توضیح‌ها بر پایهٔ رنگ‌های
+مستندشدهٔ ادیتور \lr{MATLAB} نمایش داده می‌شوند.
+
+\CodeFile{MATLAB}{حل دستگاه خطی با تم روشن متلب}{examples/linear_system.m}
+\begin{codeblock}[theme=darcula]{MATLAB}{انتخاب Darcula برای کد متلب}
+t = linspace(0, 2*pi, 100);
+y = sin(t);
+plot(t, y, 'LineWidth', 1.5);
+title('Sine wave');
+\end{codeblock}
+
+\textbf{درج مستقیم در سند:}
+\CodeFile[theme=intellij-light,numbers=none]{tex}{انتخاب زبان و تم برای هر بلوک}{examples/usage.tex}
+
+کد درون‌خطی با زمینهٔ خاکستری روشن:
+\codeinline{file_name.py}، \codeinline{len(values)} و \codeinline{Math.sqrt(4.0)}.
+
+\textbf{انتقال به سند دیگر:}
+فایل \codeinline{editor-code.sty} را پیش از \codeinline{xepersian} بارگذاری کنید.
+بسته‌های هایلایت و تم‌ها یک‌بار در سیستم نصب می‌شوند؛ راهنما در
+\codeinline{README-fa.md} آمده است.
+\end{document}
