@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="راهنمای قالب فارسی تمرین‌های دانشگاهی با XePersian، تم‌های رنگی و تنظیم یکپارچه فونت">
+<title>راهنمای قالب فارسی تمرین‌های دانشگاهی</title><style>
+:root{color-scheme:light;--ink:#302b28;--muted:#746a62;--accent:#8b4528;--line:#e5d7cc;--paper:#fff;--wash:#f7f3ef;--radius:16px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;background:var(--wash);color:var(--ink);font:16px/1.95 Vazirmatn,Tahoma,sans-serif}
+a{color:#854025;text-decoration-thickness:1px;text-underline-offset:4px}a:hover{color:#4e2415}button{font:inherit;cursor:pointer}code,pre,kbd{font-family:'JetBrains Mono',Consolas,monospace}
+.hero{background:#302b28;color:#fff8f0;padding:54px max(28px,calc((100vw - 1200px)/2)) 42px;border-bottom:5px solid #c58b59}.eyebrow{font-size:13px;color:#e6c6ab;letter-spacing:.04em}.hero h1{font-size:clamp(27px,4.2vw,41px);margin:10px 0;line-height:1.55}.hero p{max-width:750px;color:#ecded3;margin:0}.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.badges span{border:1px solid #766253;border-radius:100px;padding:3px 13px;font-size:13px}
+.layout{max-width:1260px;margin:30px auto;display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;padding:0 24px;align-items:start}.sidebar{position:sticky;top:22px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px;font-size:13px;max-height:calc(100vh - 44px);overflow:auto}.sidebar h2{font-size:15px;margin:0 0 12px}.sidebar ul{list-style:none;padding:0;margin:0}.sidebar li{margin:7px 0}.sidebar a{display:block;text-decoration:none;color:#62574e}.sidebar a:hover{color:var(--accent)}.sidebar>p{padding-top:16px;border-top:1px solid var(--line);font-size:12px}
+main{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px 36px;box-shadow:0 8px 30px #302b2808}article>h1{display:none}h2{font-size:23px;margin:42px 0 13px;padding-bottom:10px;border-bottom:1px solid var(--line)}h3{font-size:18px;margin-top:28px}p{margin:14px 0}li{margin:5px 0}ul,ol{padding-right:25px;padding-left:0}strong{font-weight:700}
+code{direction:ltr;unicode-bidi:isolate;display:inline-block;font-size:.86em;background:#f0f1f2;border:1px solid #e3e5e7;border-radius:5px;padding:0 .32em;line-height:1.7;overflow-wrap:anywhere}pre{position:relative;direction:ltr;text-align:left;unicode-bidi:isolate;background:#262829;color:#e8ebee;border-radius:12px;padding:22px 18px;margin:18px 0;overflow:auto;font-size:13px;line-height:1.8;tab-size:4}pre code{display:block;font-size:inherit;background:none;border:0;color:inherit;padding:0;white-space:pre;overflow-wrap:normal;line-height:inherit}.copy{position:absolute;right:8px;top:7px;background:#3b3e40;color:#f8f8f8;border:1px solid #5b6063;border-radius:5px;font-size:11px;padding:1px 8px}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin:18px 0}table{border-collapse:collapse;width:100%;min-width:460px;font-size:14px}th{background:#f5ece4;color:#5b3b29;text-align:right;font-weight:700}th,td{padding:12px 15px;border-bottom:1px solid #ece4de;vertical-align:top}tr:last-child td{border-bottom:0}tr:nth-child(even) td{background:#fcfaf8}blockquote{border-right:4px solid #c58b59;margin:18px 0;padding:1px 20px;background:#fff7ef}
+.theme-lab{border:1px solid var(--line);background:#fcfaf8;border-radius:14px;padding:20px;margin:24px 0 36px}.theme-lab h2{border:0;padding:0;margin:0 0 4px;font-size:19px}.theme-lab p{font-size:13px;color:var(--muted);margin:0 0 16px}.theme-buttons{display:flex;flex-wrap:wrap;gap:8px}.theme-button{border:1px solid #d8d0c9;background:#fff;border-radius:9px;padding:8px 11px;display:flex;align-items:center;gap:7px;font-size:13px}.theme-button[aria-pressed=true]{outline:2px solid var(--ink);outline-offset:1px}.swatch{width:17px;height:17px;background:var(--swatch);border-radius:50%;display:inline-block}.preview{margin:20px 0 14px;--title:#8b4528;--border:#b57448;--back:#fff5e7;--result:#f8e0b9;--note:#e4be95;--ink:#302b28;--shadow:#b6a493;color:var(--ink)}.preview-question{border:1px solid var(--border);border-radius:9px;overflow:hidden;box-shadow:3px 4px 7px color-mix(in srgb,var(--shadow) 50%,transparent)}.preview-title{background:var(--title);color:white;padding:7px 13px;font-size:14px;font-weight:700}.preview-body{background:var(--back);padding:12px 14px;font-size:14px}.preview-answer{background:var(--result);border-right:3px solid var(--title);border-radius:6px;padding:8px 13px;margin-top:12px;font-size:14px}.preview-note{background:var(--note);padding:6px 12px;margin-top:10px;font-size:12px;border-radius:5px}.theme-setting{direction:ltr;text-align:left;margin:0;font-size:12px}.lab-caption{margin-top:8px!important;font-size:12px!important}.footer{max-width:1200px;margin:24px auto 40px;padding:0 24px;color:var(--muted);font-size:13px}.footer a{color:inherit}
+@media(max-width:900px){.layout{grid-template-columns:1fr;max-width:850px}.sidebar{position:static;max-height:none}.sidebar .toc ul{display:flex;gap:6px 16px;flex-wrap:wrap}.sidebar li{margin:0}.sidebar>p{display:none}main{padding:24px}.hero{padding:32px 24px}.hero h1{font-size:29px}}@media(max-width:520px){body{font-size:15px}.layout{padding:0 10px;gap:14px;margin:14px auto}main{padding:20px 16px}.sidebar{padding:14px}h2{font-size:21px}.theme-lab{padding:14px}.theme-button{padding:7px 9px}pre{font-size:12px}.hero{padding:28px 18px}}@media print{body{background:white;font-size:11pt}.hero{background:white;color:black;border-bottom:2px solid #888;padding:12px}.hero p,.eyebrow{color:#555}.badges,.sidebar,.theme-lab,.copy,.footer{display:none}.layout{display:block;padding:0;margin:0}main{border:0;box-shadow:none;padding:0}pre{white-space:pre-wrap;background:#f5f5f5;color:black}h2{break-after:avoid}.table-scroll{overflow:visible}table{min-width:0}a{color:inherit}}
+</style></head>
+<body><header class="hero"><div class="eyebrow">راهنمای استفاده و شخصی‌سازی</div>
+<h1>قالب فارسی تمرین‌های دانشگاهی</h1><p>از صورت سؤال تا نتیجه؛ فرمول، نمودار، کد و بلوک‌دیاگرام در یک قالب قابل ویرایش.</p>
+<div class="badges"><span>XePersian / XeLaTeX</span><span>۵ تم رنگی سند</span><span>تنظیمات متمرکز فونت</span><span>نسخهٔ سبک و bundled</span></div></header>
+<div class="layout"><aside class="sidebar"><h2>در این راهنما</h2><div class="toc">
+<ul>
+<li><a href="#شروع-سریع">شروع سریع</a></li>
+<li><a href="#ساختار-ساده-پوشه">ساختار سادهٔ پوشه</a></li>
+<li><a href="#انتخاب-تم-رنگی-سند">انتخاب تم رنگی سند</a></li>
+<li><a href="#تنظیم-یکپارچه-فونت-و-اندازه">تنظیم یکپارچهٔ فونت و اندازه</a></li>
+<li><a href="#texstudio">TeXstudio</a></li>
+<li><a href="#بستههای-نصبشده-و-انتقال">بسته‌های نصب‌شده و انتقال</a></li>
+<li><a href="#نسخه-دارای-وابستگیها">نسخهٔ دارای وابستگی‌ها</a></li>
+<li><a href="#سؤال-پاسخ-و-نتیجه">سؤال، پاسخ و نتیجه</a></li>
+<li><a href="#ریاضی-نمودار-و-دیاگرام">ریاضی، نمودار و دیاگرام</a></li>
+<li><a href="#کدهای-بلوکی">کدهای بلوکی</a></li>
+<li><a href="#کد-درونخطی">کد درون‌خطی</a></li>
+<li><a href="#شخصیسازی-و-نگهداری">شخصی‌سازی و نگهداری</a></li>
+<li><a href="#نگهداری-readme-و-گیت">نگهداری README و گیت</a></li>
+</ul>
+</div>
+<p>نسخهٔ آفلاین و مستقل از محیط نمایش Markdown.<br><a href="README-fa.md">منبع Markdown</a></p></aside>
+<main>
+<section class="theme-lab" aria-label="پیش‌نمایش رنگ‌های قالب">
+  <h2>رنگ مناسب این تمرین را انتخاب کنید</h2>
+  <p>این پیش‌نمایش برای مقایسه است؛ نام انتخابی را در settings.tex قرار دهید.</p>
+  <div class="theme-buttons" role="group" aria-label="تم سند">
+    <button class="theme-button" data-theme="warm" aria-pressed="true"><span class="swatch" style="--swatch:#8b4528"></span>قهوه‌ای</button>
+    <button class="theme-button" data-theme="blue" aria-pressed="false"><span class="swatch" style="--swatch:#244f7a"></span>آبی</button>
+    <button class="theme-button" data-theme="green" aria-pressed="false"><span class="swatch" style="--swatch:#315f42"></span>سبز</button>
+    <button class="theme-button" data-theme="plum" aria-pressed="false"><span class="swatch" style="--swatch:#6b3d6c"></span>آلویی</button>
+    <button class="theme-button" data-theme="teal" aria-pressed="false"><span class="swatch" style="--swatch:#245d60"></span>فیروزه‌ای</button>
+  </div>
+  <div class="preview" id="theme-preview">
+    <div class="preview-question"><div class="preview-title">سؤال ۱ | تحلیل تابع</div><div class="preview-body">داده‌ها و فرض‌های مسئله در این قسمت قرار می‌گیرند. فرمول نمونه: <bdi dir="ltr">f(x) = x²</bdi></div></div>
+    <div class="preview-answer">نتیجهٔ نهایی با زمینهٔ مشخص و حاشیهٔ هم‌رنگ تم.</div>
+    <div class="preview-note">نکته: رنگ کدبلاک و کد درون‌خطی مستقل از این انتخاب است.</div>
+  </div>
+  <pre class="theme-setting"><code id="theme-setting">\providecommand{\AssignmentTheme}{warm}</code></pre>
+  <p class="lab-caption">در PDF شکل دقیق کادرها با tcolorbox و سایهٔ ملایم ساخته می‌شود.</p>
+</section>
+<article><h1 id="قالب-فارسی-تمرینهای-دانشگاهی">قالب فارسی تمرین‌های دانشگاهی</h1>
+<p>قالب A4 با XePersian، فونت فارسی Vazirmatn، فونت لاتین Lora و کدهای چپ‌به‌راست با JetBrains Mono. صفحهٔ عنوان، فرمول و اثبات، نمودار برداری، کد با انتخاب زبان و تم، و بلوک‌دیاگرام آماده‌اند.</p>
+<p>نسخهٔ خواناترِ راست‌به‌چپ در <strong><a href="README.html">README.html</a></strong> است؛ آن را مستقیماً با مرورگر باز کنید. همهٔ استایل‌ها داخل همان HTML هستند و برای خواندن راهنما به اینترنت نیازی نیست. Markdown منبع قابل ویرایش راهنما باقی می‌ماند.</p>
+<h2 id="شروع-سریع">شروع سریع</h2>
+<ol>
+<li>کل پوشهٔ قالب را برای تمرین جدید کپی کنید.</li>
+<li>مشخصات را در <code>metadata.tex</code>، رنگ و فونت‌ها را در <code>settings.tex</code> و صورت سؤال و پاسخ‌ها را در <code>main.tex</code> تغییر دهید.</li>
+<li>‏<code>main.tex</code> را در TeXstudio باز کنید و <strong>F5</strong> بزنید؛ یا <code>build.cmd</code> را اجرا کنید.</li>
+</ol>
+<p>در همین سیستم، بسته‌های مورد نیاز و فونت‌ها آماده‌اند و کپی پوشه به محل دیگر نیاز به نصب مجدد ندارد. PDFها و همهٔ فایل‌های کامپایل در تنها پوشهٔ تولیدی <code>build/</code> قرار می‌گیرند. فایل‌های اصلی را خارج از <code>build/</code> ویرایش کنید.</p>
+<h2 id="ساختار-ساده-پوشه">ساختار سادهٔ پوشه</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>فایل یا پوشه</th>
+<th>کاربرد</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>main.tex</code></td>
+<td>نقطهٔ شروع پاسخ‌نویسی؛ چهار نمونهٔ کوتاه آماده</td>
+</tr>
+<tr>
+<td><code>metadata.tex</code></td>
+<td>نام درس، تمرین، دانشجو، استاد درس، دانشگاه و دانشکده</td>
+</tr>
+<tr>
+<td><code>settings.tex</code></td>
+<td>انتخاب تم سند و تنظیم یکپارچهٔ فونت، اندازه‌ها و فاصله‌ها</td>
+</tr>
+<tr>
+<td><code>example.tex</code></td>
+<td>نمونهٔ کامل و یکپارچهٔ ریاضی، نمودار، کد و دیاگرام</td>
+</tr>
+<tr>
+<td><code>code-demo.tex</code></td>
+<td>مقایسهٔ زبان‌ها، تم‌ها و کد درون‌خطی</td>
+</tr>
+<tr>
+<td><code>assignment.sty</code></td>
+<td>جلد، صفحه‌آرایی و محیط‌های سؤال و پاسخ</td>
+</tr>
+<tr>
+<td><code>assignment-themes.sty</code></td>
+<td>پالت‌های رنگ سند، نمودارها و کادرها</td>
+</tr>
+<tr>
+<td><code>assignment-fonts.sty</code></td>
+<td>اعمال تنظیمات مشترک فونت؛ تشخیص فونت‌های محلی یا سیستم</td>
+</tr>
+<tr>
+<td><code>editor-code.sty</code></td>
+<td>تنظیمات قابل ویرایشِ کدهای بلوکی و درون‌خطی</td>
+</tr>
+<tr>
+<td><code>assets/</code></td>
+<td>دو لوگوی رسمی و فایل CSV نمودار نمونه</td>
+</tr>
+<tr>
+<td><code>examples/</code></td>
+<td>فایل‌های کوتاه Python، Java، MATLAB و LaTeX برای درج در سند</td>
+</tr>
+<tr>
+<td><code>tools/</code></td>
+<td>بررسی وابستگی‌ها، پاک‌سازی، ساخت ZIP، تنظیمات تم و گزارش بررسی</td>
+</tr>
+<tr>
+<td><code>build.cmd</code>، <code>build.ps1</code></td>
+<td>ساخت هر سه PDF با latexmk و XeLaTeX</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>vendor/</code>، کپی کتابخانه‌های Python و بسته‌های استاندارد LaTeX داخل قالب وجود ندارند. فایل‌های <code>assignment.sty</code> و <code>editor-code.sty</code> تنظیمات اختصاصی و قابل ویرایش خود قالب هستند.</p>
+<h2 id="انتخاب-تم-رنگی-سند">انتخاب تم رنگی سند</h2>
+<p>در <code>settings.tex</code> فقط نام تم را عوض کنید:</p>
+<pre><code class="language-latex">\providecommand{\AssignmentTheme}{blue}
+</code></pre>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>نام</th>
+<th>ظاهر</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>warm</code></td>
+<td>قهوه‌ای و کرم؛ همان پیش‌فرض گرم قالب</td>
+</tr>
+<tr>
+<td><code>blue</code></td>
+<td>آبی سرمه‌ای، آبی میانی و آبی خیلی روشن</td>
+</tr>
+<tr>
+<td><code>green</code></td>
+<td>سبز جنگلی، سبز میانی و زمینهٔ سبز روشن</td>
+</tr>
+<tr>
+<td><code>plum</code></td>
+<td>بنفش آلویی و یاسی</td>
+</tr>
+<tr>
+<td><code>teal</code></td>
+<td>سبزآبی و فیروزه‌ای روشن</td>
+</tr>
+</tbody>
+</table></div>
+<p>انتخاب تم روی جلد، لینک‌ها، کادر سؤال، نتیجه و نکته، نمودار و بلوک‌دیاگرام اعمال می‌شود. زمینهٔ صفحه سفید می‌ماند و کادرها حاشیه و سایهٔ ملایم دارند. تم سند روی رنگ کدبلاک‌ها یا کادر خاکستریِ کد درون‌خطی اثری ندارد.</p>
+<p>برای اینکه دو فایل در یک پوشه تم متفاوت داشته باشند، پیش از <code>\input{settings}</code> در همان فایل مقدار دلخواه را تعریف کنید. این روش برای همهٔ تنظیمات زیر هم کار می‌کند:</p>
+<pre><code class="language-latex">\def\AssignmentTheme{green}
+\input{settings}
+\documentclass[\AssignmentBaseSize,a4paper]{article}
+\usepackage{assignment}
+\input{metadata}
+</code></pre>
+<p>تعریف‌های <code>settings.tex</code> با <code>\providecommand</code> نوشته شده‌اند؛ بنابراین مقدارِ از قبل تعیین‌شدهٔ همان سند را بازنویسی نمی‌کنند. برای یک تمرین تازه که پوشهٔ جداگانه دارد، ویرایش خودِ <code>settings.tex</code> ساده‌تر است. پالت‌های رنگ در <code>assignment-themes.sty</code> قابل ویرایش‌اند؛ لوگوها رنگ اصلی خود را حفظ می‌کنند.</p>
+<h2 id="تنظیم-یکپارچه-فونت-و-اندازه">تنظیم یکپارچهٔ فونت و اندازه</h2>
+<p>تمام انتخاب‌های روزمره در <code>settings.tex</code> هستند. اندازهٔ پایهٔ <code>article</code> یکی از <code>10pt</code>، <code>11pt</code> یا <code>12pt</code> است؛ با تغییرش، اندازه‌های نسبی مثل <code>\small</code> و اندازهٔ معمول فرمول‌ها هم متناسب تغییر می‌کنند. نمونه:</p>
+<pre><code class="language-latex">\providecommand{\AssignmentBaseSize}{12pt}
+\providecommand{\AssignmentPersianFont}{Vazirmatn}
+\providecommand{\AssignmentPersianBoldFont}{Vazirmatn Bold}
+\providecommand{\AssignmentLatinFont}{Lora}
+\providecommand{\AssignmentCodeFont}{JetBrains Mono}
+\providecommand{\AssignmentLineSpacing}{1.3}
+\providecommand{\AssignmentCodeScale}{.88}
+\providecommand{\AssignmentCodeSize}{\footnotesize}
+</code></pre>
+<p><strong>خط‌های موجود را ویرایش کنید؛ تعریف تکراری با <code>providecommand</code> اضافه نکنید.</strong> برای فونت فارسی دیگر، نام خانوادهٔ معمولی و ضخیم را با هم تغییر دهید. فونت انتخابی باید در سیستم نصب باشد یا طبق تنظیمات فونت محلی در دسترس باشد.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>تنظیم</th>
+<th>کاربرد</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AssignmentBaseSize</code></td>
+<td>اندازهٔ پایهٔ متن و ریاضی</td>
+</tr>
+<tr>
+<td><code>AssignmentPersianFont</code> و <code>AssignmentPersianBoldFont</code></td>
+<td>خانوادهٔ متن فارسی و حالت ضخیم آن</td>
+</tr>
+<tr>
+<td><code>AssignmentLatinFont</code> و <code>AssignmentLatinScale</code></td>
+<td>فونت متن لاتین و ضریب اندازهٔ آن</td>
+</tr>
+<tr>
+<td><code>AssignmentLineSpacing</code> و <code>AssignmentParagraphSkip</code></td>
+<td>فاصلهٔ سطرها و پاراگراف‌ها</td>
+</tr>
+<tr>
+<td><code>AssignmentCodeFont</code> و <code>AssignmentCodeScale</code></td>
+<td>فونت مشترک کد بلوکی و درون‌خطی و ضریب اندازه</td>
+</tr>
+<tr>
+<td><code>AssignmentCodeSize</code> و <code>AssignmentCodeLineSpacing</code></td>
+<td>اندازه و فاصلهٔ سطر کدبلاک</td>
+</tr>
+<tr>
+<td><code>AssignmentInlineCodeSize</code></td>
+<td>مقدار خالی: هم‌اندازه با متن اطراف؛ یا مثلاً <code>\small</code></td>
+</tr>
+<tr>
+<td><code>AssignmentCodeToolbarSize</code> و <code>AssignmentCodeNumberSize</code></td>
+<td>اندازهٔ نوار عنوان و شمارهٔ خط کد</td>
+</tr>
+<tr>
+<td><code>AssignmentTitleSize</code> و <code>AssignmentCourseSize</code></td>
+<td>اندازهٔ عددی بر حسب pt برای عنوان جلد و نام درس</td>
+</tr>
+<tr>
+<td><code>AssignmentStudentSize</code> و <code>AssignmentInstructorSize</code></td>
+<td>اندازهٔ عددی نام دانشجو و استاد روی جلد</td>
+</tr>
+<tr>
+<td><code>AssignmentHeaderSize</code> و <code>AssignmentFooterSize</code></td>
+<td>اندازهٔ سرصفحه و پاصفحه</td>
+</tr>
+<tr>
+<td><code>AssignmentCaptionSize</code> و <code>AssignmentDiagramSize</code></td>
+<td>اندازهٔ شرح شکل، برچسب نمودار و متن دیاگرام</td>
+</tr>
+<tr>
+<td><code>AssignmentPersianItalicSlant</code></td>
+<td>کجیِ ایتالیک متن فارسی؛ مستقل از فونت ریاضی</td>
+</tr>
+</tbody>
+</table></div>
+<p>پیش‌فرض <code>AssignmentMathFont</code> برابر <code>default</code> است: همان Computer Modern ریاضی، بدون کج‌کردن اضافه. اگر فونت OpenType ریاضی دیگری می‌خواهید، مثلاً مقدار <code>Latin Modern Math</code> را بگذارید؛ قالب در این حالت <code>unicode-math</code> را خودکار بارگذاری می‌کند. فونت منتخب باید در TeX یا سیستم در دسترس باشد. برای بولدِ بردار همچنان <code>\vect{x}</code> را به کار ببرید؛ این فرمان با هر دو حالت سازگار است.</p>
+<p>در نسخهٔ دارای وابستگی‌ها، فونت‌های پیش‌فرض از <code>fonts/</code> خوانده می‌شوند و نصب سراسری لازم ندارند. مقدار <code>AssignmentFontSource</code> به‌طور پیش‌فرض <code>auto</code> است؛ <code>system</code> استفاده از نصب سیستم را اجبار می‌کند. انتخاب یک خانوادهٔ متفاوت، از فونت نصب‌شدهٔ همان خانواده استفاده می‌کند؛ فایل‌های همراه مربوط به Vazirmatn، Lora و JetBrains Mono هستند.</p>
+<h2 id="texstudio">TeXstudio</h2>
+<p>هر سه سند اصلی در چند خط اول، فرمان کامپایل و نمایش PDF خود را دارند. فرمان کامپایل از <strong>latexmk و XeLaTeX نصب‌شدهٔ سیستم</strong> استفاده می‌کند، پوشهٔ <code>build/</code> را خودکار می‌سازد و ارجاع‌ها را تا تثبیت شماره‌ها تکرار می‌کند. مسیر نمایشگر داخلی هم صریحاً به PDF همان سند در <code>build/</code> اشاره می‌کند؛ به تغییر سراسری مسیر جست‌وجوی PDF نیاز نیست.</p>
+<ul>
+<li>برای پاسخ‌نویسی، <code>main.tex</code> را باز کنید؛ <strong>F6</strong> کامپایل و <strong>F5</strong> کامپایل و نمایش است.</li>
+<li>برای نمونهٔ کامل و گالری، فایل مربوط را باز کنید. اگر قبلاً یک Root Document ثابت انتخاب کرده‌اید، از <code>Options &gt; Root Document</code> آن را آزاد کنید یا سند مورد نظر را انتخاب کنید.</li>
+<li>هنگام ویرایش <code>metadata.tex</code>، کامپایل به <code>main.tex</code> ارجاع داده می‌شود.</li>
+<li>فایل‌ها UTF-8 هستند. موتور سند XeLaTeX است و <code>shell-escape</code> برای هایلایت فعال می‌شود.</li>
+<li>پس از نصب اولیهٔ بسته‌های Python و تغییر PATH، TeXstudio را دوباره باز کنید تا مسیر فرمان‌های تازه را ببیند.</li>
+<li>اگر TeXstudio برای فرمان‌های معرفی‌شده در سند اجازه خواست، زنجیرهٔ کامپایل و نمایش، فرمان <code>latexmk</code> و مسیر PDF ابتدای همان سند را بررسی کنید. <code>Yes to All</code> همان فرمان مشخص را برای کپی‌های بعدی هم مجاز می‌کند. در صورت انتخاب <code>Yes</code>، فایل را ذخیره کنید تا <code>document-id</code> اضافه‌شده باقی بماند. فرمان‌های <code>quick</code>، <code>compile</code> و <code>view</code> ممکن است بار اول جداگانه تأیید بخواهند.</li>
+</ul>
+<p>این تنظیم‌ها از <a href="https://texstudio-org.github.io/advanced.html#advanced-header-usage">magic commentهای رسمی TeXstudio</a> و <a href="https://texstudio-org.github.io/configuration.html#command-syntax-in-detail">قواعد مسیرهای فرمان و نمایشگر</a> استفاده می‌کنند. فایل <code>.latexmkrc</code> محیط ساخت را آماده می‌کند؛ در نسخهٔ سبک از نصب سیستم و در نسخهٔ bundled از محیط محلی استفاده می‌شود.</p>
+<p>از ترمینال، در پوشهٔ قالب:</p>
+<pre><code class="language-powershell">.\build.cmd
+.\build.cmd -Target main
+.\build.cmd -Target example
+.\build.cmd -Target code-demo
+</code></pre>
+<p>خروجی‌ها به‌ترتیب <code>build/main.pdf</code>، <code>build/example.pdf</code> و <code>build/code-demo.pdf</code> هستند. این‌ها همان PDFهایی هستند که TeXstudio نمایش می‌دهد.</p>
+<h2 id="بستههای-نصبشده-و-انتقال">بسته‌های نصب‌شده و انتقال</h2>
+<p>نسخهٔ سبکِ <code>assignment-template</code> از TeX Live و Python و فونت‌های سیستم استفاده می‌کند. روی سیستم بررسی‌شده، TeX Live 2025 و Python 3.14 در دسترس‌اند؛ نسخه‌های مورد نیاز:</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>بخش</th>
+<th>نسخه و محل</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LaTeX</td>
+<td>minted 3.8.0، fvextra 1.14.0، latex2pydata 0.7.0 در درخت مشترک <code>TEXMFLOCAL</code></td>
+</tr>
+<tr>
+<td>بسته‌های دیگر</td>
+<td>XePersian، TikZ/PGFPlots، tcolorbox، latexmk و بسته‌های معمول از TeX Live</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>latexminted 0.7.1، Pygments 2.19.2، latex2pydata 0.5.0 و latexrestricted 0.6.2 در نصب Python</td>
+</tr>
+<tr>
+<td>تم‌ها</td>
+<td>افزونهٔ اختصاصی <code>assignment-editorstyles</code> نسخهٔ 1.1.0 در Python</td>
+</tr>
+<tr>
+<td>فونت‌ها</td>
+<td>Vazirmatn، Lora و JetBrains Mono از نصب سیستم</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>TEXMFLOCAL</code> محل استاندارد افزودن بسته‌های مشترک به TeX Live است. فایل‌های اصلی TeX Live 2025 دستکاری نشده‌اند؛ بسته‌های جدیدتر در این درخت بر نسخه‌های قدیمی اولویت دارند. چون این نصبِ افزوده مستقل از فهرست tlmgr است، محل فایل واقعی را با <code>kpsewhich minted.sty</code> بررسی کنید. <a href="https://tug.org/texlive/doc/texlive-en/texlive-en.html">راهنمای رسمی نصب بسته‌ها در TEXMFLOCAL</a></p>
+<p>برای انتقال به <strong>پوشه‌ای دیگر روی همین سیستم</strong>، فقط کل قالب را کپی کنید. برای <strong>کامپیوتری دیگر</strong>، یک‌بار TeX و Python و فونت‌ها و نسخه‌های سازگار بسته‌ها را نصب کنید. در یک TeX Live به‌روز، بسته‌های LaTeX با tlmgr نصب یا به‌روز می‌شوند؛ در نسخهٔ قدیمی، بسته‌های سازگار CTAN را در <code>TEXMFLOCAL/tex/latex/&lt;package&gt;/</code> و منابعشان را در <code>TEXMFLOCAL/source/latex/&lt;package&gt;/</code> قرار دهید و <code>mktexlsr</code> را اجرا کنید. نسخه‌های لازم و منابع رسمی در <code>tools/SOURCES.md</code> آمده‌اند.</p>
+<p>وابستگی‌های Python و تم اختصاصی یک‌بار با Python مورد استفادهٔ TeX نصب می‌شوند:</p>
+<pre><code class="language-powershell">python -m pip install -r tools/requirements.txt ./tools/themes
+python tools/project.py check
+</code></pre>
+<p>مسیر <code>Scripts</code> همین Python باید در PATH باشد تا فرمان <code>latexminted</code> از TeX قابل اجرا باشد. روی Windows، <code>.latexmkrc</code> مسیرهای معمول Python نصب‌شدهٔ کاربر را هم بررسی می‌کند. هنگام ساخت عادی PDF دانلود یا نصب pip انجام نمی‌شود. مجوزها و منابع لوگوها و پالت‌ها در <code>tools/SOURCES.md</code> ثبت شده‌اند.</p>
+<h2 id="نسخه-دارای-وابستگیها">نسخهٔ دارای وابستگی‌ها</h2>
+<p>پوشهٔ <code>assignment-template-bundled</code> کنار نسخهٔ سبک، همان منابع و تنظیمات را دارد و این موارد به آن اضافه شده‌اند:</p>
+<ul>
+<li>فونت‌های Vazirmatn، Lora و JetBrains Mono همراه مجوزهایشان در <code>fonts/</code>؛</li>
+<li>محیط مجازی <code>.venv</code> با بسته‌های Python و چهار تم اختصاصی نصب‌شده؛</li>
+<li>ابزارهای ساخت HTML راهنما و بازنصب آفلاینِ پالت‌های قابل ویرایش کد؛</li>
+<li>فایل‌های wheel برای نصب دوبارهٔ کاملاً آفلاین در <code>wheelhouse/</code>؛</li>
+<li>نسخه‌های سازگار minted، fvextra و latex2pydata همراه منابع و مجوزها در <code>texmf/</code>؛</li>
+<li><code>setup.cmd</code> و <code>setup.ps1</code> برای آماده‌سازی یا بازسازی محیط پس از انتقال.</li>
+</ul>
+<p>این نسخه همچنان به نصب TeX Live، XeLaTeX/latexmk و Python نیاز دارد؛ کپی کامل توزیع TeX یا نصب‌کنندهٔ Python نیست. بستهٔ آماده برای Windows است؛ wheelهای فعلی Python مستقل از پلتفرم‌اند، اما راه‌اندازهای Windows برای سیستم‌عامل دیگر باید معادل‌سازی شوند.</p>
+<p>پس از کپی یا استخراج کل پوشه، یک‌بار <code>setup.cmd</code> را اجرا کنید و سپس <code>main.tex</code> را در TeXstudio باز کنید یا <code>build.cmd</code> را بزنید. راه‌انداز از فایل‌های همراه استفاده می‌کند و اینترنت لازم ندارد. برای انتخاب Python مشخص:</p>
+<pre><code class="language-powershell">.\setup.cmd -Python &quot;C:\path\to\python.exe&quot;
+.\build.cmd -Target main
+</code></pre>
+<p>venv در Python به مسیر نصب پایه وابسته است و به‌خودی‌خود بستهٔ قابل انتقال محسوب نمی‌شود؛ به همین دلیل wheelها و راه‌انداز بازسازی هم همراه‌اند. اگر محیط محلی پس از جابه‌جایی قابل اجرا نباشد، wrapper کدها هم تلاش می‌کند آن را یک‌بار به‌صورت آفلاین آماده کند. <a href="https://docs.python.org/3/library/venv.html">توضیح رسمی Python دربارهٔ انتقال venv</a></p>
+<p>پوشهٔ <code>build/</code> برای خروجی و cache است. نگه‌داشتنش حین ویرایش باعث می‌شود <code>latexmk</code> ساخت بدون تغییر را تکرار نکند. پیام‌های <code>Using bibtex</code> و بازگردانی code page ویندوز به‌تنهایی خطا نیستند؛ معیار موفقیت، کد خروج و پایان عادی فرایند است.</p>
+<h2 id="سؤال-پاسخ-و-نتیجه">سؤال، پاسخ و نتیجه</h2>
+<pre><code class="language-latex">\begin{problem}[۲۰ نمره]{عنوان سؤال}\label{prob:one}
+  صورت سؤال و فرض‌های مسئله.
+\end{problem}
+\begin{solution}
+  \Part{بخش اول}
+  مراحل حل.
+  \begin{answerbox}
+    پاسخ نهایی همراه واحد و شرایط اعتبار.
+  \end{answerbox}
+\end{solution}
+\begin{notebox}[نکته]
+  توضیح تکمیلی.
+\end{notebox}
+</code></pre>
+<p>شمارهٔ تمرین‌ها خودکار است؛ برای شروع از ۵، پیش از سؤال اول <code>\setcounter{problem}{4}</code> را قرار دهید. کادرها در صفحهٔ بعد قابل ادامه‌اند. جلد شماره ندارد و صفحات متن از ۱ شمرده می‌شوند. فهرست اختیاری با <code>\tableofcontents</code> پس از جلد اضافه می‌شود.</p>
+<h2 id="ریاضی-نمودار-و-دیاگرام">ریاضی، نمودار و دیاگرام</h2>
+<p>محیط‌های <code>equation</code>، <code>align</code>، <code>cases</code>، <code>bmatrix</code>، <code>theorem</code>، <code>lemma</code>، <code>definition</code> و <code>proof</code> آماده‌اند. برای ارجاع چپ‌به‌راست از <code>\eqnref{eq:name}</code> استفاده کنید. شمارهٔ رابطه از شمارهٔ تمرین پیروی می‌کند. اعداد ریاضی لاتین‌اند.</p>
+<pre><code class="language-latex">\begin{equation}\label{eq:sample}
+  \mat{A}\vect{x}=\vect{b},\qquad
+  \norm{\vect{x}}_2=\sqrt{13}.
+\end{equation}
+طبق رابطهٔ \eqnref{eq:sample}، ...
+</code></pre>
+<p>فرمان‌های <code>\R</code>، <code>\N</code>، <code>\E</code>، <code>\vect</code>، <code>\mat</code>، <code>\dd</code>، <code>\abs</code>، <code>\norm</code>، <code>\inner</code>، <code>\argmin</code> و <code>\argmax</code> وجود دارند. صورت ستاره‌دار <code>\norm*{...}</code> اندازهٔ علامت‌ها را خودکار می‌کند.</p>
+<p>نمودارها با PGFPlots و دیاگرام‌ها با TikZ ساخته می‌شوند. نمونهٔ کامل در <code>example.tex</code> قرار دارد؛ دادهٔ نمودار در <code>assets/convergence.csv</code> است. محیط‌های <code>plotarea</code> و <code>diagramarea</code> جهت مختصات را چپ‌به‌راست نگه می‌دارند؛ برچسب فارسی داخلشان با <code>\rl{...}</code> نوشته می‌شود. سبک‌های <code>assignment axis</code>، <code>assignment block</code>، <code>assignment io</code>، <code>assignment decision</code>، <code>assignment sum</code> و <code>assignment arrow</code> آماده‌اند.</p>
+<h2 id="کدهای-بلوکی">کدهای بلوکی</h2>
+<pre><code class="language-latex">\begin{codeblock}[theme=vscode-dark]{Python}{عنوان فارسی کد}
+def square(x):
+    return x ** 2
+\end{codeblock}
+
+\CodeFile{Python}{عنوان کد}{examples/gradient_descent.py}
+</code></pre>
+<p>نام زبان صریح است و از aliasهای Pygments می‌آید؛ مانند <code>Python</code>، <code>Java</code>، <code>MATLAB</code>، <code>C++</code>، <code>JavaScript</code>، <code>SQL</code> یا <code>bash</code>. انتخاب زبان و تم مستقل است. هایلایت واژگانی است و تحلیل معنایی IDE را اجرا نمی‌کند.</p>
+<p>تم‌های <code>darcula</code>، <code>intellij-light</code>، <code>vscode-dark</code> و <code>matlab-light</code> آماده‌اند؛ <code>pycharm-darcula</code> و <code>pycharm-light</code> نیز نام‌های جایگزین‌اند. پیش‌فرض عمومی Darcula و پیش‌فرض MATLAB روشن است. برای پیش‌فرض‌ها در <code>settings.tex</code>:</p>
+<pre><code class="language-latex">\providecommand{\AssignmentCodeTheme}{darcula}
+\providecommand{\AssignmentMatlabTheme}{matlab-light}
+</code></pre>
+<p>برای استثنای یک زبان یا یک سند، پس از بارگذاری قالب مثلاً در <code>metadata.tex</code>:</p>
+<pre><code class="language-latex">\SetCodeDefaultTheme{darcula}
+\SetCodeLanguageTheme{Python}{vscode-dark}
+\SetCodeLanguageTheme{MATLAB}{matlab-light}
+</code></pre>
+<p>انتخاب <code>theme</code> برای هر بلوک اولویت دارد. گزینه‌های <code>firstline</code>، <code>lastline</code>، <code>firstnumber</code>، <code>numbers=none</code> و <code>fontsize</code> نیز پشتیبانی می‌شوند. گزینه‌های دیگر minted داخل <code>minted={...}</code> قرار می‌گیرند. کدهای بلند در صفحات بعد ادامه دارند.</p>
+<h2 id="کد-درونخطی">کد درون‌خطی</h2>
+<p>برای نام فایل، متغیر یا قطعهٔ کوتاه کد از <code>\codeinline</code> استفاده کنید. متن داخل یک کادر جمع‌وجور با زمینهٔ خاکستری خیلی روشن، حاشیهٔ ظریف و گوشه‌های نرم می‌نشیند. فونت JetBrains Mono همان فونت کدبلاک‌هاست؛ جهت کد چپ‌به‌راست و رنگ تمام نویسه‌ها یکسان است. انتخاب زبان یا تم برای کد درون‌خطی لازم نیست.</p>
+<pre><code class="language-latex">فایل \codeinline{file_name.py} و متغیر \codeinline{sample_count}.
+تابع \codeinline{len(values)} تعداد عضوها را می‌دهد.
+محاسبهٔ \codeinline{Math.sqrt(4.0)} در همین سطر قرار می‌گیرد.
+</code></pre>
+<p>برای نویسه‌های ویژه هم می‌توانید کد را میان دو جداکنندهٔ یکسان قرار دهید؛ <code>%</code>، <code>#</code>، <code>_</code> و بک‌اسلش به‌صورت مستقیم خوانده می‌شوند:</p>
+<pre><code class="language-latex">\codeinline|a_b = 50% + #x|
+\codeinline|A \ b|
+</code></pre>
+<p>اگر کد خودش <code>|</code> دارد، جداکنندهٔ دیگری مثل <code>!</code> انتخاب کنید. از این فرمان برای قطعه‌های کوتاه در متن عادی استفاده کنید؛ قطعهٔ کد داخل کادر در چند خط شکسته نمی‌شود. متن فارسی را بیرون کد بنویسید. فرمان قدیمی <code>\CodeInline</code> برای سازگاری پذیرفته می‌شود و همین ظاهر خنثی را دارد؛ زبان و تم قبلی بر ظاهر inline اثری ندارند.</p>
+<p>رنگ‌های <code>ECInlineBackground</code>، <code>ECInlineBorder</code> و <code>ECInlineForeground</code> و سبک <code>editor inline</code> در <code>editor-code.sty</code> فقط ظاهر درون‌خطی را کنترل می‌کنند. رنگ‌بندی کدبلاک‌ها مستقل است.</p>
+<h2 id="شخصیسازی-و-نگهداری">شخصی‌سازی و نگهداری</h2>
+<ul>
+<li>نام دانشگاه و دانشکده زیر لوگوها از <code>metadata.tex</code> خوانده می‌شود؛ برچسب استاد، «استاد درس» است.</li>
+<li>انتخاب تم و فونت فقط در <code>settings.tex</code> است. پالت‌های رنگ در <code>assignment-themes.sty</code> و صفحه‌آرایی و سایه در <code>assignment.sty</code> قرار دارند؛ با حذف <code>drop fuzzy shadow</code> سایه برداشته می‌شود.</li>
+<li>رنگ و قاب کدها در <code>editor-code.sty</code> مستقل‌اند. پالت‌های Pygments در <code>tools/themes/assignment_editorstyles.py</code> قابل ویرایش‌اند. پس از تغییر پالت، <code>python tools/project.py install-themes</code> را اجرا کنید و cache قبلی را با فرمان پاک‌سازی زیر حذف کنید.</li>
+<li>بسته‌های اضافی LaTeX باید در <code>assignment.sty</code>، پیش از XePersian بارگذاری شوند.</li>
+</ul>
+<pre><code class="language-powershell">python tools/project.py check
+python tools/project.py clean
+python tools/project.py package
+</code></pre>
+<p>پاک‌سازی عادی فقط خروجی و cache ساخت را حذف می‌کند و محیط Python آمادهٔ bundled را نگه می‌دارد؛ ابتدا PDF مورد نیاز را از <code>build/</code> به محل تحویل خود کپی کنید. فرمان package نسخهٔ سبک، منابع و تنظیمات را بدون build یا وابستگی‌های سیستم بسته‌بندی می‌کند. برای ساخت نسخهٔ همراه وابستگی‌ها از ابزار انتشار در ریشهٔ مخزن استفاده می‌شود. نتیجهٔ بررسی نسخهٔ حاضر در <code>tools/VALIDATION.md</code> ثبت می‌شود.</p>
+<h2 id="نگهداری-readme-و-گیت">نگهداری README و گیت</h2>
+<p>پس از ویرایش این Markdown، نسخهٔ HTML را دوباره بسازید:</p>
+<pre><code class="language-powershell">python -m pip install -r tools/requirements-docs.txt
+python tools/render_readme.py
+</code></pre>
+<p>در مخزن اصلی، <code>assignment-template/</code> منبع اصلی است و پوشهٔ bundled و ZIPها از آن تولید می‌شوند. فایل‌های ساخت، محیط مجازی، آرشیوهای قدیمی و وابستگی‌های دانلودشده وارد گیت نمی‌شوند. تغییرهای قابل توجه با کامیت مستقل ثبت می‌شوند؛ کارهای گسترده در شاخهٔ جدا انجام و پس از بررسی به شاخهٔ اصلی منتقل می‌شوند. فرمان ساخت بسته‌ها از ریشهٔ مخزن:</p>
+<pre><code class="language-powershell">python tools/release.py
+</code></pre>
+<p>این فرمان نسخهٔ سبک، پوشهٔ bundled، محیط آماده و ZIPهای متناظر را می‌سازد و سازگاری محتوای آرشیوها را بررسی می‌کند. تولید اولین wheelhouse به اینترنت نیاز دارد؛ استفاده و بازسازی محیطِ بستهٔ آماده آفلاین است.</p>
+<p>در نسخهٔ bundled برای ساخت دوبارهٔ HTML می‌توانید از <code>.\.venv\Scripts\python.exe tools/render_readme.py</code> استفاده کنید. فرمان‌های <code>check</code> و <code>install-themes</code> نیز محیط محلیِ آماده را خودکار انتخاب می‌کنند. پس از تغییرِ فقط مستندات یا منابع قالب در مخزن، <code>python tools/release.py --refresh-source</code> نسخهٔ bundled و ZIPها را بدون نصب دوبارهٔ محیط موجود همگام می‌کند؛ برای تغییر وابستگی‌ها، ساخت کامل را اجرا کنید.</p></article></main></div>
+<footer class="footer">فایل‌های اصلی: <bdi dir="ltr">main.tex · metadata.tex · settings.tex</bdi> — این راهنما با <bdi dir="ltr">tools/render_readme.py</bdi> از Markdown ساخته می‌شود.</footer>
+<script>
+const palettes={warm:['#8b4528','#b57448','#fff5e7','#f8e0b9','#e4be95','#302b28','#b6a493'],blue:['#244f7a','#6b9fc9','#edf5fd','#d4e8fa','#bcd7ee','#202f40','#9cafc2'],green:['#315f42','#73a47d','#eff7ec','#d9ebcf','#bcd7b3','#24362e','#a0b3a0'],plum:['#6b3d6c','#ab7ab0','#f8edf8','#ead4ed','#d8b8dd','#382c3c','#b3a1b7'],teal:['#245d60','#69a7a8','#edf8f6','#cfeae5','#b2d7d1','#233839','#9db7b3']};
+document.querySelectorAll('[data-theme]').forEach(button=>button.addEventListener('click',()=>{const id=button.dataset.theme;const keys=['title','border','back','result','note','ink','shadow'];keys.forEach((key,i)=>document.getElementById('theme-preview').style.setProperty('--'+key,palettes[id][i]));document.querySelectorAll('[data-theme]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.getElementById('theme-setting').textContent='\\providecommand{\\AssignmentTheme}{'+id+'}';}));
+document.querySelectorAll('pre').forEach(pre=>{const button=document.createElement('button');button.type='button';button.className='copy';button.textContent='کپی';button.setAttribute('aria-label','کپی کد');button.addEventListener('click',async()=>{const value=pre.querySelector('code').textContent;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(value);}else{const area=document.createElement('textarea');area.value=value;area.style.position='fixed';area.style.opacity='0';document.body.append(area);area.select();const ok=document.execCommand('copy');area.remove();if(!ok)throw new Error('copy');}button.textContent='کپی شد';}catch{const selection=window.getSelection();const range=document.createRange();range.selectNodeContents(pre.querySelector('code'));selection.removeAllRanges();selection.addRange(range);button.textContent='Ctrl+C';}setTimeout(()=>button.textContent='کپی',1800);});pre.append(button);});
+</script></body></html>

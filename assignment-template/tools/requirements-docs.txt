@@ -1,0 +1,4 @@
+Markdown==3.9
+# Rebuild editable Pygments palettes offline in the bundled edition.
+setuptools==80.9.0
+wheel==0.45.1
