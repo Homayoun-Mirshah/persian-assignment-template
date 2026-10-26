@@ -3,6 +3,7 @@ from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 import argparse
 import hashlib
+import os
 import re
 import shutil
 import subprocess
@@ -11,18 +12,29 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 ROOT_FILES = {
     'main.tex', 'metadata.tex', 'example.tex', 'code-demo.tex',
-    'assignment.sty', 'editor-code.sty', 'README-fa.md',
+    'assignment.sty', 'editor-code.sty', 'assignment-fonts.sty',
+    'assignment-themes.sty', 'settings.tex', 'README-fa.md', 'README.html',
     'build.cmd', 'build.ps1', '.latexmkrc', '.gitignore',
 }
 FOLDERS = {'assets', 'examples', 'tools'}
 GENERATED = {'build', 'tmp', '__pycache__', '.venv', '_minted'}
+CLEAN_DIRECTORIES = {'build', 'tmp', '__pycache__', '_minted'}
 
 
 def command(name, *arguments):
-    executable = shutil.which(name)
-    if not executable:
-        raise RuntimeError(f'{name} is not on PATH.')
-    result = subprocess.run([executable, *arguments], check=True, capture_output=True, text=True)
+    environment = dict(os.environ)
+    local_tex = ROOT / 'texmf/tex/latex'
+    if local_tex.is_dir():
+        environment['TEXINPUTS'] = local_tex.as_posix() + '//' + os.pathsep + environment.get('TEXINPUTS', '') + os.pathsep
+    if name == 'latexminted':
+        # Query the very Python environment whose packages are checked below.
+        invocation = [sys.executable, '-c', 'from latexminted.cmdline import main; main()', *arguments]
+    else:
+        executable = shutil.which(name)
+        if not executable:
+            raise RuntimeError(f'{name} is not on PATH.')
+        invocation = [executable, *arguments]
+    result = subprocess.run(invocation, cwd=ROOT, env=environment, check=True, capture_output=True, text=True)
     return result.stdout.strip()
 
 
@@ -35,8 +47,9 @@ def check():
         get_style_by_name(style)
     for name, minimum in (('minted', '3.8.0'), ('fvextra', '1.14.0'), ('latex2pydata', '0.7.0')):
         filename = Path(command('kpsewhich', name + '.sty'))
-        if filename.is_relative_to(ROOT):
-            raise RuntimeError(f'{name} unexpectedly resolves inside the project.')
+        local_texmf = ROOT / 'texmf'
+        if filename.is_relative_to(ROOT) and not filename.is_relative_to(local_texmf):
+            raise RuntimeError(f'{name} resolves outside the bundled texmf tree: {filename}')
         content = filename.read_text(encoding='utf-8', errors='replace')
         pattern = r'\\ProvidesPackage\{' + name + r'\}.*?\bv([0-9.]+)'
         found = re.search(pattern, content, re.S)
@@ -45,7 +58,7 @@ def check():
         print(name, found[1], filename)
     print(command('latexminted', '--version').splitlines()[0])
     print(command('latexmk', '-v').splitlines()[0])
-    print('System dependencies and all four themes are ready.')
+    print('Python/TeX dependencies and all four code themes are ready.')
 
 
 def generated(path):
@@ -54,7 +67,8 @@ def generated(path):
 
 def clean():
     directories = [p for p in ROOT.rglob('*') if p.is_dir() and
-                   (p.name in GENERATED or p.name.endswith('.egg-info'))]
+                   not any(part.startswith('.venv') for part in p.relative_to(ROOT).parts) and
+                   (p.name in CLEAN_DIRECTORIES or p.name.startswith('_minted') or p.name.endswith('.egg-info'))]
     for path in sorted(directories, key=lambda p: len(p.parts)):
         if path.exists():
             resolved = path.resolve()
@@ -97,11 +111,16 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, default=ROOT.parent/'output/zip/persian-assignment-template.zip')
     parser.add_argument('--extract-to', type=Path)
     arguments = parser.parse_args()
+    bundled_python = ROOT / '.venv/Scripts/python.exe'
+    if (arguments.action in {'check', 'install-themes'} and bundled_python.is_file()
+            and Path(sys.executable).resolve() != bundled_python.resolve()):
+        raise SystemExit(subprocess.run([str(bundled_python), str(Path(__file__).resolve()), *sys.argv[1:]]).returncode)
     if arguments.action == 'check':
         check()
     elif arguments.action == 'clean':
         clean()
     elif arguments.action == 'install-themes':
-        subprocess.run([sys.executable, '-m', 'pip', 'install', '--no-deps', str(ROOT/'tools/themes')], check=True)
+        extra = ['--no-index', '--no-build-isolation'] if (ROOT/'wheelhouse').is_dir() else []
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--no-cache-dir', '--no-deps', *extra, str(ROOT/'tools/themes')], check=True)
     else:
         package(arguments.output, arguments.extract_to)

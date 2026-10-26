@@ -1,17 +1,39 @@
 # Sources and installed dependencies
 
-Third-party LaTeX and Python packages are loaded from the system, rather than
-redistributed in this project. On the reviewed Windows machine, unmodified
+The lightweight source loads third-party LaTeX and Python packages from the
+system. The generated bundled edition redistributes font files, Python wheels,
+and three supplementary LaTeX packages with their license notices and unmodified
+LaTeX sources. The installed TeX distribution and base Python are still required.
+On the reviewed Windows machine, unmodified
 minted 3.8.0, fvextra 1.14.0, and latex2pydata 0.7.0 are registered in
 `TEXMFLOCAL`, together with their `.dtx` sources and license notices.
 XePersian, TikZ/PGFPlots, tcolorbox, and other standard dependencies come from
 TeX Live 2025. Python dependencies are listed in `requirements.txt`.
+Documentation/build tooling is pinned in `requirements-docs.txt`.
 
 - [minted](https://ctan.org/pkg/minted), LPPL 1.3c / LPPL 1.3 / BSD 3-Clause.
 - [fvextra](https://ctan.org/pkg/fvextra), LPPL 1.3.
 - [latex2pydata](https://ctan.org/pkg/latex2pydata), LPPL 1.3c.
 - [Pygments](https://pygments.org/), BSD 2-Clause.
 - [latexminted](https://github.com/gpoore/minted), LPPL 1.3c.
+- [Python-Markdown](https://python-markdown.github.io/), BSD 3-Clause.
+- [setuptools](https://github.com/pypa/setuptools) and [wheel](https://github.com/pypa/wheel), MIT.
+
+## Bundled fonts
+
+Default faces are copied without modification: Vazirmatn variable regular and
+bold; Lora regular/bold/italic/bold italic; JetBrains Mono regular/bold/italic/bold
+italic. All three families use the SIL Open Font License 1.1. Full notices are
+provided next to the bundled font files.
+
+- [Vazirmatn and OFL](https://github.com/rastikerdar/vazirmatn).
+- [Lora and OFL](https://github.com/google/fonts/tree/main/ofl/lora).
+- [JetBrains Mono and OFL](https://github.com/JetBrains/JetBrainsMono).
+
+`tools/release.py` records SHA-256 hashes of sources, fonts, LaTeX package files,
+license notices, launchers, and offline wheels in `DEPENDENCIES.json`. The
+disposable virtual environment is verified through ZIP/source comparison and
+an actual offline recreation test.
 
 ## Editable theme palettes
 
