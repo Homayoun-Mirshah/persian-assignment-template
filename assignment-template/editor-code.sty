@@ -1,20 +1,18 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{editor-code}[2026/10/16 Multilanguage blocks and inline code]
+\ProvidesPackage{editor-code}[2026/10/26 Configurable multilanguage blocks and inline code]
 % Reusable module. Load BEFORE xepersian. See README-fa.md.
 \RequirePackage{iftex}
 \ifXeTeX\else
   \PackageError{editor-code}{Use XeLaTeX}{This module uses fontspec and XePersian.}
 \fi
 \RequirePackage{fontspec}
+\RequirePackage{assignment-fonts}
 \RequirePackage{xcolor}
 \RequirePackage{needspace}
 \RequirePackage{setspace}
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
 \RequirePackage{minted}[2026/03/03]
-
-\newfontfamily\codefont[Scale=.88,RawFeature={-calt,-liga}]{JetBrains Mono}
-\setmonofont[Scale=.88,RawFeature={-calt,-liga}]{JetBrains Mono}
 
 \ExplSyntaxOn
 \cs_new:Npn \EditorLowercase #1 {\str_lowercase:f {#1}}
@@ -61,7 +59,7 @@
 \tcbset{editor inline/.style={enhanced,on line,arc=.7mm,
   boxrule=.2pt,boxsep=0pt,left=.8mm,right=.8mm,top=.3mm,bottom=.3mm,
   colback=ECInlineBackground,colframe=ECInlineBorder,
-  coltext=ECInlineForeground,fontupper=\codefont}}
+  coltext=ECInlineForeground,fontupper=\codefont\AssignmentInlineCodeSize}}
 \newcommand{\EC@inline}[1]{%
   \lr{{\tcbox[editor inline]{\vphantom{Ag}#1}}}}
 % Both \codeinline{file_name.py} and \codeinline|a_b = 50%| are literal.
@@ -75,7 +73,7 @@
   \ifcsname EC@language@\EC@lexer\endcsname
     \edef\EC@theme{\csname EC@language@\EC@lexer\endcsname}%
   \fi
-  \def\EC@extra{}\def\EC@size{\small}\def\EC@numbers{true}%
+  \def\EC@extra{}\def\EC@size{\AssignmentCodeSize}\def\EC@numbers{true}%
   \def\EC@firstline{1}\def\EC@lastline{999999}\def\EC@firstnumber{1}%
   \pgfkeys{/editor code/.cd,#1}%
   \ifcsname EC@theme@\EC@theme\endcsname
@@ -88,18 +86,18 @@
     linenos=\EC@numbers,firstline=\EC@firstline,lastline=\EC@lastline,%
     firstnumber=\EC@firstnumber,\unexpanded\expandafter{\EC@extra}}%
   \expandafter\setminted\expandafter{\EC@options}%
-  \renewcommand{\theFancyVerbLine}{\codefont\scriptsize\color{ECNumbers}\arabic{FancyVerbLine}}}
+  \renewcommand{\theFancyVerbLine}{\codefont\AssignmentCodeNumberSize\color{ECNumbers}\arabic{FancyVerbLine}}}
 
 \setminted{encoding=utf8,breaklines=true,breakanywhere=true,autogobble=true,
   tabsize=4,numbersep=10pt,showspaces=false,showtabs=false,
-  fontfamily=tt,baselinestretch=1.08,breaksymbolleft={},breaksymbolright={}}
+  fontfamily=tt,baselinestretch=\AssignmentCodeLineSpacing,breaksymbolleft={},breaksymbolright={}}
 
 \newcommand{\EC@openbox}[1]{%
   \latin\setstretch{1.05}%
   \begin{tcolorbox}[enhanced,breakable,arc=1.2mm,boxrule=.4pt,
     colback=ECBackground,colframe=ECToolbar,coltext=ECForeground,
     colbacktitle=ECToolbar,coltitle=ECForeground,
-    title={#1\hfill\EC@label},fonttitle=\codefont\footnotesize,
+    title={#1\hfill\EC@label},fonttitle=\codefont\AssignmentCodeToolbarSize,
     % With tcolorbox's 1mm boxsep, code starts 2mm after the 8mm gutter.
     % The 10pt numbersep leaves numbers wholly inside that gutter.
     left=9mm,right=3mm,top=2.5mm,bottom=2.5mm,

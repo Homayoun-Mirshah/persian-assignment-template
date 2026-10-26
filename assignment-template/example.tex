@@ -4,7 +4,8 @@
 % !TeX TXS-program:compile = latexmk -xelatex -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error -halt-on-error -outdir=build "%.tex"
 % !TeX TXS-program:view = txs:///view-pdf-internal --embedded "?a)/build/?m).pdf"
 % نمونهٔ کامل امکانات؛ نقطهٔ شروع تمرین واقعی main.tex است.
-\documentclass[11pt,a4paper]{article}
+\input{settings}
+\documentclass[\AssignmentBaseSize,a4paper]{article}
 \usepackage{assignment}
 \input{metadata}
 \renewcommand{\Course}{روش‌های ریاضی و محاسباتی}
@@ -222,11 +223,13 @@ int find_index(const std::vector<int>& a, int target) {
 \end{solution}
 \newpage
 \begin{notebox}[راهنمای سریع استفاده از قالب]
+  \raggedleft
   برای شروع یک تمرین، فایل \codeinline{main.tex} و اطلاعات
-  \codeinline{metadata.tex} ویرایش می‌شوند. فایل
+  \codeinline{metadata.tex} ویرایش می‌شوند؛ رنگ و فونت در
+  \codeinline{settings.tex} انتخاب می‌شوند. فایل
   \codeinline{example.tex} نمونهٔ کامل امکانات است و فایل‌های کد در پوشهٔ
   \codeinline{examples/} قرار دارند. راهنمای کامل در
-  \codeinline{README-fa.md} آمده است.
+  \codeinline{README.html} آمده است.
 \end{notebox}
 
 {\large\bfseries\color{AssignmentAccent}زبان‌های کد}\par

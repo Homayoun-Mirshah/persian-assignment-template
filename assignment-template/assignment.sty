@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{assignment}[2026/10/16 Persian university assignments]
+\ProvidesPackage{assignment}[2026/10/26 Configurable Persian university assignments]
 
 \RequirePackage{iftex}
 \ifXeTeX\else
@@ -9,7 +9,10 @@
   headheight=32pt,headsep=7mm,footskip=12mm]{geometry}
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
-\RequirePackage{mathtools,amssymb,bm,amsthm}
+\RequirePackage{mathtools,amsthm}
+\RequirePackage{assignment-fonts}
+\ifAssignmentUnicodeMath\else\RequirePackage{amssymb,bm}\fi
+\RequirePackage{assignment-themes}
 \RequirePackage{booktabs,array,tabularx}
 \RequirePackage{enumitem}
 \RequirePackage{needspace}
@@ -36,48 +39,19 @@
     {\cs_new_eq:NN \tbl_save_outer_table_cols: \tbl_init_cell_data_for_table:}}
 \ExplSyntaxOff
 
-% Resolve the user's installed fonts by family name.
-\settextfont[BoldFont={Vazirmatn Bold},
-  ItalicFont=Vazirmatn,BoldItalicFont={Vazirmatn Bold},
-  ItalicFeatures={FakeSlant=.15},BoldItalicFeatures={FakeSlant=.15}]{Vazirmatn}
-\setlatintextfont{Lora}
-\setdigitfont[BoldFont={Vazirmatn Bold},
-  ItalicFont=Vazirmatn,BoldItalicFont={Vazirmatn Bold}]{Vazirmatn}
-% Keep mathematical digits Latin, consistent with code and plot coordinates.
-\ifdefined\DefaultMathDigits\DefaultMathDigits\else\DefaultMathsDigits\fi
-
-\definecolor{AssignmentInk}{HTML}{302B28}
-\definecolor{AssignmentAccent}{HTML}{9B4D2B}
-\definecolor{AssignmentMuted}{HTML}{73675E}
-\definecolor{AssignmentLine}{HTML}{C99A75}
-\definecolor{AssignmentTint}{HTML}{FAE7CF}
-\definecolor{AssignmentPaper}{HTML}{FFF5E7}
-\definecolor{AssignmentGold}{HTML}{B56A20}
-% Warm document cards; editor-code.sty keeps its independent theme palettes.
-\definecolor{AssignmentBoxTitle}{HTML}{8B4528}
-\definecolor{AssignmentBoxBorder}{HTML}{B57448}
-\definecolor{AssignmentBoxBack}{HTML}{FFF5E7}
-\definecolor{AssignmentBoxResult}{HTML}{F8E0B9}
-\definecolor{AssignmentBoxNoteTitle}{HTML}{E4BE95}
-\definecolor{AssignmentBoxShadow}{HTML}{B6A493}
-\definecolor{AssignmentLogoBlue}{HTML}{2B3E64}
-\definecolor{CodeKeyword}{HTML}{185B9D}
-\definecolor{CodeString}{HTML}{A64035}
-\definecolor{CodeComment}{HTML}{527263}
-\definecolor{CodeType}{HTML}{744C99}
+\ApplyAssignmentFonts
 
 \hypersetup{unicode=true,colorlinks=true,linkcolor=AssignmentAccent,
   urlcolor=AssignmentAccent,citecolor=AssignmentAccent,
   bookmarksnumbered=true,pdfdisplaydoctitle=true}
-\setstretch{1.27}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{.42em}
 \setlength{\emergencystretch}{2em}
 \raggedbottom
 \allowdisplaybreaks[1]
 \setlist[itemize]{topsep=.2em,itemsep=.15em,parsep=0pt}
 \setlist[enumerate]{topsep=.2em,itemsep=.2em,parsep=0pt}
-\captionsetup{font=small,labelfont={bf,color=AssignmentAccent},
+\DeclareCaptionFont{assignment}{\AssignmentCaptionSize}
+\captionsetup{font=assignment,labelfont={bf,color=AssignmentAccent},
   labelsep=colon,skip=7pt}
 \renewcommand{\arraystretch}{1.25}
 
@@ -100,10 +74,10 @@
 % Keep font/direction commands scoped; headers work across multi-page listings.
 \makeatletter
 \newcommand{\AssignmentHeader}{%
-  {\normalfont\setpersianfont\small\color{AssignmentMuted}%
+  {\normalfont\setpersianfont\AssignmentHeaderSize\color{AssignmentMuted}%
     \HeaderCourse\hfil تمرین \AssignmentNumber}}
 \newcommand{\AssignmentFooter}{%
-  \hfil{\normalfont\setpersianfont\small\color{AssignmentMuted}%
+  \hfil{\normalfont\setpersianfont\AssignmentFooterSize\color{AssignmentMuted}%
     صفحهٔ \thepage\ از \pageref*{LastPage}}\hfil}
 \def\ps@assignment{%
   \def\@oddhead{\AssignmentHeader}\let\@evenhead\@oddhead
@@ -156,10 +130,10 @@
     \vspace{5mm}
     \begin{minipage}{.92\linewidth}
       \centering
-      {\fontsize{28}{39}\selectfont\bfseries\color{AssignmentInk}
+      {\AssignmentFontSize{\AssignmentTitleSize}\bfseries\color{AssignmentInk}
         \AssignmentTitle\par}
       \vspace{4mm}
-      {\fontsize{16}{24}\selectfont\color{AssignmentAccent}\Course\par}
+      {\AssignmentFontSize{\AssignmentCourseSize}\color{AssignmentAccent}\Course\par}
     \end{minipage}\par
     \vspace{12mm}
     {\color{AssignmentLine}\rule{.66\linewidth}{.5pt}\par}
@@ -168,7 +142,7 @@
       \centering
       {\small\color{AssignmentMuted}دانشجو\par}
       \vspace{1mm}
-      {\fontsize{15}{23}\selectfont\bfseries\color{AssignmentInk}
+      {\AssignmentFontSize{\AssignmentStudentSize}\bfseries\color{AssignmentInk}
         \StudentName\par}
       \vspace{2mm}
       {\small\color{AssignmentMuted}شماره دانشجویی:
@@ -176,7 +150,7 @@
       \vspace{7mm}
       {\small\color{AssignmentMuted}استاد درس\par}
       \vspace{1mm}
-      {\fontsize{14}{22}\selectfont\color{AssignmentInk}\Instructor\par}
+      {\AssignmentFontSize{\AssignmentInstructorSize}\color{AssignmentInk}\Instructor\par}
     \end{minipage}\par
     \vspace{\stretch{3}}
     \begin{minipage}[t]{.43\linewidth}
@@ -243,7 +217,7 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\E}{\mathbb{E}}
-\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\vect}[1]{\ifAssignmentUnicodeMath\symbf{#1}\else\bm{#1}\fi}
 \newcommand{\mat}[1]{\mathbf{#1}}
 \newcommand{\dd}{\mathop{}\!\mathrm{d}}
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
@@ -259,20 +233,20 @@
   width=.85\linewidth,height=6.2cm,
   axis line style={AssignmentMuted},tick style={AssignmentLine},
   grid=major,grid style={AssignmentLine!60},
-  tick label style={font=\small\rmfamily},label style={font=\small\rmfamily},
-  legend style={draw=none,fill=white,font=\small\rmfamily,
+  tick label style={font=\AssignmentDiagramSize\rmfamily},label style={font=\AssignmentDiagramSize\rmfamily},
+  legend style={draw=none,fill=white,font=\AssignmentDiagramSize\rmfamily,
     cells={anchor=west}},
   every axis plot/.append style={thick},
   cycle list={{AssignmentAccent,mark=*},{AssignmentGold,mark=square*},
-    {CodeType,mark=triangle*},{CodeKeyword,mark=diamond*}}}}
+    {AssignmentPlotThird,mark=triangle*},{AssignmentPlotFourth,mark=diamond*}}}}
 \tikzset{
   assignment block/.style={draw=AssignmentAccent!70,fill=AssignmentTint,
     rounded corners=2mm,minimum width=25mm,minimum height=12mm,
-    align=center,font=\small,thick},
+    align=center,font=\AssignmentDiagramSize,thick},
   assignment io/.style={assignment block,fill=AssignmentPaper,
     draw=AssignmentMuted!65},
   assignment decision/.style={diamond,aspect=2,draw=AssignmentGold,
-    fill=AssignmentGold!7,inner sep=2pt,align=center,font=\small,thick},
+    fill=AssignmentGold!7,inner sep=2pt,align=center,font=\AssignmentDiagramSize,thick},
   assignment sum/.style={circle,draw=AssignmentAccent,
     minimum size=8mm,inner sep=0pt,thick},
   assignment arrow/.style={-{Stealth[length=2.4mm]},thick,draw=AssignmentInk}}

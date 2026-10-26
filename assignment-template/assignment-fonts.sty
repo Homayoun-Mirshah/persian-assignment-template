@@ -1,0 +1,93 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{assignment-fonts}[2026/10/26 Shared configurable fonts]
+% This module is loaded before XePersian; apply text fonts after XePersian.
+\InputIfFileExists{settings.tex}{}{%
+  \PackageError{assignment-fonts}{settings.tex is missing}{Copy the complete template folder.}}
+\RequirePackage{fontspec}
+\RequirePackage{etoolbox}
+\newif\ifAssignmentUnicodeMath
+\ifdefstring{\AssignmentMathFont}{default}{}{%
+  \AssignmentUnicodeMathtrue
+  % Deliberately keep mathtools brackets and unicode-math colon aliases.
+  % Silence only the two upstream notices describing this combination.
+  \RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}}
+
+\newif\ifAssignmentLocalFonts
+\ifdefstring{\AssignmentFontSource}{system}{}{\AssignmentLocalFontstrue}
+
+\newcommand{\AssignmentSystemCodeFont}{%
+  \newfontfamily\codefont[Scale=\AssignmentCodeScale,
+    RawFeature={-calt,-liga}]{\AssignmentCodeFont}%
+  \setmonofont[Scale=\AssignmentCodeScale,
+    RawFeature={-calt,-liga}]{\AssignmentCodeFont}}
+\newcommand{\AssignmentLocalCodeFont}{%
+  \newfontfamily\codefont[Path=fonts/,Scale=\AssignmentCodeScale,
+    BoldFont=JetBrainsMono-Bold.otf,ItalicFont=JetBrainsMono-Italic.otf,
+    BoldItalicFont=JetBrainsMono-BoldItalic.otf,
+    RawFeature={-calt,-liga}]{JetBrainsMono-Regular.otf}%
+  \setmonofont[Path=fonts/,Scale=\AssignmentCodeScale,
+    BoldFont=JetBrainsMono-Bold.otf,ItalicFont=JetBrainsMono-Italic.otf,
+    BoldItalicFont=JetBrainsMono-BoldItalic.otf,
+    RawFeature={-calt,-liga}]{JetBrainsMono-Regular.otf}}
+\ifAssignmentLocalFonts
+  \ifdefstring{\AssignmentCodeFont}{JetBrains Mono}{%
+    \IfFileExists{fonts/JetBrainsMono-Regular.otf}
+      {\AssignmentLocalCodeFont}{\AssignmentSystemCodeFont}%
+  }{\AssignmentSystemCodeFont}
+\else
+  \AssignmentSystemCodeFont
+\fi
+
+\newcommand{\AssignmentSystemPersianFont}{%
+  \settextfont[BoldFont={\AssignmentPersianBoldFont},
+    ItalicFont={\AssignmentPersianFont},
+    BoldItalicFont={\AssignmentPersianBoldFont},
+    ItalicFeatures={FakeSlant=\AssignmentPersianItalicSlant},
+    BoldItalicFeatures={FakeSlant=\AssignmentPersianItalicSlant}]
+    {\AssignmentPersianFont}%
+  \setdigitfont[BoldFont={\AssignmentPersianBoldFont},
+    ItalicFont={\AssignmentPersianFont},
+    BoldItalicFont={\AssignmentPersianBoldFont}]{\AssignmentPersianFont}}
+\newcommand{\AssignmentLocalPersianFont}{%
+  \settextfont[Path=fonts/,BoldFont=Vazirmatn-Bold.ttf,
+    ItalicFont=Vazirmatn-VariableFont_wght.ttf,
+    BoldItalicFont=Vazirmatn-Bold.ttf,
+    ItalicFeatures={FakeSlant=\AssignmentPersianItalicSlant},
+    BoldItalicFeatures={FakeSlant=\AssignmentPersianItalicSlant}]
+    {Vazirmatn-VariableFont_wght.ttf}%
+  \setdigitfont[Path=fonts/,BoldFont=Vazirmatn-Bold.ttf,
+    ItalicFont=Vazirmatn-VariableFont_wght.ttf,
+    BoldItalicFont=Vazirmatn-Bold.ttf]{Vazirmatn-VariableFont_wght.ttf}}
+\newcommand{\AssignmentSystemLatinFont}{%
+  \setlatintextfont[Scale=\AssignmentLatinScale]{\AssignmentLatinFont}}
+\newcommand{\AssignmentLocalLatinFont}{%
+  \setlatintextfont[Path=fonts/,Scale=\AssignmentLatinScale,
+    BoldFont=Lora-Bold.ttf,ItalicFont=Lora-Italic.ttf,
+    BoldItalicFont=Lora-BoldItalic.ttf]{Lora-Regular.ttf}}
+
+\newcommand{\ApplyAssignmentFonts}{%
+  \ifAssignmentLocalFonts
+    \ifdefstring{\AssignmentPersianFont}{Vazirmatn}{%
+      \ifdefstring{\AssignmentPersianBoldFont}{Vazirmatn Bold}{%
+        \IfFileExists{fonts/Vazirmatn-VariableFont_wght.ttf}
+          {\AssignmentLocalPersianFont}{\AssignmentSystemPersianFont}%
+      }{\AssignmentSystemPersianFont}%
+    }{\AssignmentSystemPersianFont}%
+    \ifdefstring{\AssignmentLatinFont}{Lora}{%
+      \IfFileExists{fonts/Lora-Regular.ttf}
+        {\AssignmentLocalLatinFont}{\AssignmentSystemLatinFont}%
+    }{\AssignmentSystemLatinFont}%
+  \else
+    \AssignmentSystemPersianFont\AssignmentSystemLatinFont
+  \fi
+  \ifAssignmentUnicodeMath\setmathfont{\AssignmentMathFont}\fi
+  % Keep mathematical digits Latin; Persian body text retains its own digits.
+  \ifdefined\DefaultMathDigits\DefaultMathDigits\else\DefaultMathsDigits\fi
+  \setstretch{\AssignmentLineSpacing}%
+  \setlength{\parskip}{\AssignmentParagraphSkip}%
+  \SetCodeDefaultTheme{\AssignmentCodeTheme}%
+  \SetCodeLanguageTheme{MATLAB}{\AssignmentMatlabTheme}}
+
+% Cover sizes use numeric pt values and proportionate leading.
+\newcommand{\AssignmentFontSize}[1]{%
+  \fontsize{#1}{\fpeval{1.4*(#1)}}\selectfont}

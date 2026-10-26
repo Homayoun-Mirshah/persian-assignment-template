@@ -1,0 +1,50 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{assignment-themes}[2026/10/26 Five document palettes]
+\RequirePackage{xcolor}
+\makeatletter
+% Colors: ink, accent, muted, line, tint, paper, secondary, title, border,
+% box background, result background, note title, shadow.
+\newcommand{\AssignmentPalette}[9]{%
+  \definecolor{AssignmentInk}{HTML}{#1}%
+  \definecolor{AssignmentAccent}{HTML}{#2}%
+  \definecolor{AssignmentMuted}{HTML}{#3}%
+  \definecolor{AssignmentLine}{HTML}{#4}%
+  \definecolor{AssignmentTint}{HTML}{#5}%
+  \definecolor{AssignmentPaper}{HTML}{#6}%
+  \definecolor{AssignmentGold}{HTML}{#7}%
+  \definecolor{AssignmentBoxTitle}{HTML}{#8}%
+  \definecolor{AssignmentBoxBorder}{HTML}{#9}%
+  \AssignmentPaletteBackgrounds}
+\newcommand{\AssignmentPaletteBackgrounds}[4]{%
+  \definecolor{AssignmentBoxBack}{HTML}{#1}%
+  \definecolor{AssignmentBoxResult}{HTML}{#2}%
+  \definecolor{AssignmentBoxNoteTitle}{HTML}{#3}%
+  \definecolor{AssignmentBoxShadow}{HTML}{#4}}
+\newcommand{\DeclareAssignmentTheme}[2]{%
+  \expandafter\def\csname AT@theme@#1\endcsname{#2}}
+\DeclareAssignmentTheme{warm}{%
+  \AssignmentPalette{302B28}{9B4D2B}{73675E}{C99A75}{FAE7CF}{FFF5E7}
+    {B56A20}{8B4528}{B57448}{FFF5E7}{F8E0B9}{E4BE95}{B6A493}}
+\DeclareAssignmentTheme{blue}{%
+  \AssignmentPalette{202F40}{245A91}{536B80}{91B6D6}{DDEDF9}{F0F7FE}
+    {427EA3}{244F7A}{6B9FC9}{EDF5FD}{D4E8FA}{BCD7EE}{9CAFC2}}
+\DeclareAssignmentTheme{green}{%
+  \AssignmentPalette{24362E}{2D6848}{596F61}{8EB79B}{E1F0E3}{F1F8EF}
+    {687A30}{315F42}{73A47D}{EFF7EC}{D9EBCF}{BCD7B3}{A0B3A0}}
+\DeclareAssignmentTheme{plum}{%
+  \AssignmentPalette{382C3C}{784679}{77617B}{BB97C0}{F1E1F0}{FBF2FA}
+    {A15879}{6B3D6C}{AB7AB0}{F8EDF8}{EAD4ED}{D8B8DD}{B3A1B7}}
+\DeclareAssignmentTheme{teal}{%
+  \AssignmentPalette{233839}{246D70}{587477}{8CBFC0}{DDF0EF}{EFF9F7}
+    {477F83}{245D60}{69A7A8}{EDF8F6}{CFEAE5}{B2D7D1}{9DB7B3}}
+\ifcsname AT@theme@\AssignmentTheme\endcsname
+  \csname AT@theme@\AssignmentTheme\endcsname
+\else
+  \PackageError{assignment-themes}{Unknown document theme '\AssignmentTheme'}%
+    {Use warm, blue, green, plum, or teal in settings.tex.}
+\fi
+% Institutional marks keep their official backing; code palettes are separate.
+\definecolor{AssignmentLogoBlue}{HTML}{2B3E64}
+\colorlet{AssignmentPlotThird}{AssignmentAccent!55!black}
+\colorlet{AssignmentPlotFourth}{AssignmentGold!70!AssignmentAccent}
+\makeatother

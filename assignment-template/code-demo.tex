@@ -4,17 +4,15 @@
 % !TeX TXS-program:compile = latexmk -xelatex -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error -halt-on-error -outdir=build "%.tex"
 % !TeX TXS-program:view = txs:///view-pdf-internal --embedded "?a)/build/?m).pdf"
 % Standalone example: does NOT load assignment.sty.
-\documentclass[11pt,a4paper]{article}
+\input{settings}
+\documentclass[\AssignmentBaseSize,a4paper]{article}
 \usepackage[margin=22mm]{geometry}
 \usepackage{editor-code}
 \usepackage{hyperref}
 \usepackage{xepersian}
-\settextfont[BoldFont={Vazirmatn Bold}]{Vazirmatn}
-\setlatintextfont{Lora}
+\ApplyAssignmentFonts
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt}
 \setlength{\emergencystretch}{2em}
-\setstretch{1.25}
 \raggedbottom
 \hypersetup{unicode=true,colorlinks=true,urlcolor=blue,
   pdftitle={نمونهٔ تم‌های ویرایشگر برای کد},pdfauthor={قالب تمرین‌های دانشگاهی}}
@@ -67,7 +65,10 @@ title('Sine wave');
 \codeinline{file_name.py}، \codeinline{len(values)} و \codeinline{Math.sqrt(4.0)}.
 
 \textbf{انتقال به سند دیگر:}
-فایل \codeinline{editor-code.sty} را پیش از \codeinline{xepersian} بارگذاری کنید.
-بسته‌های هایلایت و تم‌ها یک‌بار در سیستم نصب می‌شوند؛ راهنما در
-\codeinline{README-fa.md} آمده است.
+فایل‌های \codeinline{editor-code.sty}، \codeinline{assignment-fonts.sty} و
+\codeinline{settings.tex} را همراه سند نگه دارید. ماژول کد پیش از
+\codeinline{xepersian} بارگذاری می‌شود و پس از آن
+\codeinline|\ApplyAssignmentFonts| اجرا می‌شود.
+تنظیم فونت و اندازه در \codeinline{settings.tex} و راهنمای کامل در
+\codeinline{README.html} آمده است.
 \end{document}
