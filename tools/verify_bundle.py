@@ -29,8 +29,6 @@ def main():
     venv = (project / '.venv').resolve()
     if not venv.is_relative_to((ROOT / 'tmp').resolve()) or venv.name != '.venv':
         raise RuntimeError('Unsafe disposable venv path')
-    # Force a genuine offline reconstruction rather than relying on the shipped venv.
-    shutil.rmtree(venv)
     python_candidates = [Path(getattr(sys, '_base_executable', sys.executable)),
                          Path.home() / 'AppData/Local/Python/pythoncore-3.14-64/python.exe']
     python = next((p for p in python_candidates if p.is_file() and 'codex-runtimes' not in str(p)), None)
@@ -46,6 +44,18 @@ def main():
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     transcript = REPORT.with_suffix('.txt')
     with transcript.open('w', encoding='utf-8') as stream:
+        # Verify the actual shipped environment before testing reconstruction.
+        # Moving a venv between machines may require setup; on this machine its
+        # base Python is present, so the copied environment must work directly.
+        shipped = [str(venv / 'Scripts/python.exe'), '-c',
+                   'import latexminted,markdown,setuptools,wheel; import pip._internal.operations.build.wheel; from pygments.styles import get_style_by_name; get_style_by_name("assignment-darcula")']
+        stream.write('+ shipped venv readiness probe\n')
+        stream.flush()
+        probe = subprocess.run(shipped, cwd=project, env=environment, stdout=stream, stderr=subprocess.STDOUT)
+        if probe.returncode:
+            raise RuntimeError(f'Shipped venv is incomplete; see {transcript}')
+        # Force a genuine offline reconstruction as a second, independent check.
+        shutil.rmtree(venv)
         for command in (
             ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(project / 'setup.ps1'), '-Python', str(python)],
             ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(project / 'build.ps1'), '-Target', 'all'],
@@ -80,7 +90,7 @@ def main():
             raise RuntimeError(f'Unembedded font in {name}')
         outputs[name] = {'pages': pages, 'pdf': str(pdf), 'warnings': issues}
     result = {'archive': str(ARCHIVE), 'archive_sha256': hashlib.sha256(ARCHIVE.read_bytes()).hexdigest(),
-              'project': str(project), 'offline_recreation': True,
+              'project': str(project), 'shipped_venv_ready': True, 'offline_recreation': True,
               'system_python_scripts_excluded_from_path': True,
               'local_fonts_and_tex_packages_verified': True, 'outputs': outputs}
     REPORT.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

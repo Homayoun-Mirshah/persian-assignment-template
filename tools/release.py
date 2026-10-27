@@ -190,9 +190,13 @@ def package_tree(root: Path, target: Path, include_venv: bool):
         if not path.is_file():
             continue
         parts = path.relative_to(root).parts
-        if any(x in OMIT_DIRS or x.startswith('_minted') or x.endswith('.egg-info') for x in parts):
-            continue
-        if not include_venv and any(x.startswith('.venv') for x in parts):
+        inside_venv = any(x.startswith('.venv') for x in parts)
+        if inside_venv:
+            if not include_venv or '__pycache__' in parts:
+                continue
+            # Names such as pip/_internal/operations/build are real Python
+            # packages, not project build caches. Preserve the complete venv.
+        elif any(x in OMIT_DIRS or x.startswith('_minted') or x.endswith('.egg-info') for x in parts):
             continue
         if path.suffix in {'.pyc', '.pyo', '.bak', '.tmp'}:
             continue
