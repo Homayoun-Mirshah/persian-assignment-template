@@ -29,7 +29,7 @@ async function main() {
       missingAnchors: [...document.querySelectorAll('.toc a')].filter(a => !document.getElementById(decodeURIComponent(a.hash.slice(1)))).map(a => a.hash),
       overflow: document.documentElement.scrollWidth > innerWidth,
     }));
-    if (results.direction !== 'rtl' || results.language !== 'fa' || results.codeDirection !== 'ltr') throw new Error('Wrong text direction');
+    if (results.direction !== 'ltr' || results.language !== 'en' || results.codeDirection !== 'ltr') throw new Error('Wrong text direction');
     if (results.themeButtons !== 5 || results.codeBlocks !== results.copyButtons) throw new Error('Missing theme or copy controls');
     if (results.missingAnchors.length || results.overflow) throw new Error('Desktop navigation/overflow issue');
     results.palettes = {};

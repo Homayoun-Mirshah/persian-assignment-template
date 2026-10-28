@@ -1,28 +1,27 @@
 # Persian assignment template
 
-An editable A4 XeLaTeX/XePersian template for Persian university exercises:
-math and proofs, plots, language-aware highlighted code, neutral inline code,
-and block diagrams.
+An A4 XeLaTeX/XePersian template for Persian university assignments, with a title
+page, math and proofs, plots, highlighted code, inline code, and block diagrams.
 
-**راهنمای فارسی و راست‌به‌چپ:**
-[assignment-template/README.html](assignment-template/README.html)
+## Get started
 
-Download or clone the repository and open that HTML file locally in a browser.
-The source guide is [README-fa.md](assignment-template/README-fa.md).
+1. Copy `assignment-template/` into a folder for your assignment.
+2. Edit course and student details in `metadata.tex`, appearance in `settings.tex`,
+   and questions and answers in `main.tex`.
+3. Open `main.tex` in TeXstudio and press F5, or run `build.cmd -Target main`.
+   The PDF appears in `build/main.pdf`.
 
-- Start writing in `assignment-template/main.tex`.
-- Edit course/student information in `metadata.tex`.
-- Choose one of five document palettes and configure fonts/sizes in `settings.tex`.
-- Run `assignment-template/build.cmd` or open a main document in TeXstudio.
-- Build the dependency-inclusive sibling with `python tools/release.py`.
+The template needs TeX Live with XeLaTeX and latexmk, Python, and the default
+Vazirmatn, Lora, and JetBrains Mono fonts. See the
+[user guide](assignment-template/README.md) for dependency setup and customization.
+You can also open [README.html](assignment-template/README.html) locally in a browser.
 
-`assignment-template/` is the canonical, lightweight source. The generated
-`assignment-template-bundled/` additionally contains local fonts, an installed
-Python virtual environment, an offline wheelhouse, and compatible supplementary
-LaTeX packages. It still uses the system's TeX Live/XeLaTeX and Python installation.
-Its `setup.cmd` recreates the virtual environment offline after relocation.
+## Downloads
 
-Generated PDFs and ZIP packages are placed in `output/`. Build caches, virtual
-environments, dependency downloads, and the user's historical `references/`
-are intentionally excluded from Git. See [AGENTS.md](AGENTS.md) for the maintenance
-and commit workflow.
+[Releases](https://github.com/Homayoun-Mirshah/persian-assignment-template/releases)
+include sample PDFs and two ZIPs:
+
+- `persian-assignment-template.zip` uses system fonts and dependencies.
+- `persian-assignment-template-bundled.zip` includes fonts, Python packages, and
+  supplementary LaTeX packages for offline setup on Windows. After extracting it,
+  run `setup.cmd` once. TeX Live and a base Python installation are still required.

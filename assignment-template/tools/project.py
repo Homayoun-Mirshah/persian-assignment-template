@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ROOT_FILES = {
     'main.tex', 'metadata.tex', 'example.tex', 'code-demo.tex',
     'assignment.sty', 'editor-code.sty', 'assignment-fonts.sty',
-    'assignment-themes.sty', 'settings.tex', 'README-fa.md', 'README.html',
+    'assignment-themes.sty', 'settings.tex', 'README.md', 'README.html',
     'build.cmd', 'build.ps1', '.latexmkrc', '.gitignore',
 }
 FOLDERS = {'assets', 'examples', 'tools'}
